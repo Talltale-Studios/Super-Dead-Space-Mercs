@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=4 uid="uid://pb5uh775qycs"]
+
+[ext_resource type="PackedScene" uid="uid://y4rbi5ibv6li" path="res://core/data/scenes/characters/player/player.tscn" id="1_eu33d"]
+[ext_resource type="TileSet" uid="uid://ba4mo0bytxmit" path="res://core/assets/resources/tiles/test_tile_set.tres" id="2_857wc"]
+[ext_resource type="PackedScene" uid="uid://vmqvittdn3u6" path="res://core/data/scenes/characters/enemies/blade_spinner/blade_spinner.tscn" id="3_yn3r3"]
+
+[node name="TestScene" type="Node2D"]
+
+[node name="World" type="TileMapLayer" parent="."]
+texture_filter = 1
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAOAAUAAAAkAAQAAAAOAAcAAAAkAAQAAAAiAAcAAAAgAAQAAAAiAAUAAAAgAAQAAAAiAAkAAAAiAAQAAAAOAAkAAAAiAAQAAAAgAAkAAAAiAAIAAAAeAAkAAAAiAAIAAAAcAAkAAAAiAAIAAAAaAAkAAAAiAAIAAAAYAAkAAAAiAAIAAAAWAAkAAAAiAAIAAAAUAAkAAAAiAAIAAAASAAkAAAAiAAIAAAAQAAkAAAAiAAIAAAAvAAIAAAAAACIAAAAiAAMAAAAyAAoAAAAsAAMAAAA2AAoAAAAqAAMAAAA2AAoAAAAkAAMAAAA2AAoAAAAmAAMAAAA2AAoAAAAoAAMAAAA2AAoAAAAOAAMAAAA4AAoAAAAMAAMAAAA2AAoAAAAKAAMAAAA2AAoAAAAIAAMAAAA2AAoAAAAGAAMAAAA2AAoAAAAEAAMAAAA2AAoAAAACAAMAAAA2AAoAAAAAAAMAAAA2AAoAAAD+/wMAAAA2AAoAAAD8/wMAAAA2AAoAAAD6/wMAAAA2AAoAAAD4/wMAAAA2AAoAAAD2/wMAAAA2AAoAAAD0/wMAAAA2AAoAAADx/wIAAAAEACIAAADt/wAAAAAEACIAAADp//7/AAAEACIAAADm//3/AAA2AAoAAADk//3/AAA2AAoAAADi//3/AAA2AAoAAADg//3/AAA2AAoAAADe//3/AAA2AAoAAADc//3/AAA2AAoAAAAOAPf/AAAkAAYAAAAiAPf/AAAgAAYAAAAiAPX/AAAgAAQAAAAiAPP/AAAgAAQAAAAiAPH/AAAgAAQAAAAOAPX/AAAkAAQAAAAOAPP/AAAkAAQAAAAOAPH/AAAkAAQAAAAOAO//AAAiAAQAAAAQAO//AAAiAAYAAAASAO//AAAiAAYAAAAUAO//AAAiAAYAAAAWAO//AAAiAAYAAAAYAO//AAAiAAYAAAAaAO//AAAiAAYAAAAcAO//AAAiAAYAAAAeAO//AAAiAAYAAAAgAO//AAAiAAYAAAAiAO//AAAiAAQAAAA=")
+tile_set = ExtResource("2_857wc")
+
+[node name="Platforms" type="TileMapLayer" parent="."]
+use_parent_material = true
+tile_set = ExtResource("2_857wc")
+
+[node name="BladeSpinner" parent="." instance=ExtResource("3_yn3r3")]
+position = Vector2(192, -116)
+
+[node name="Player" parent="." instance=ExtResource("1_eu33d")]
+position = Vector2(21, -23)

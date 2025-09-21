@@ -1,15 +1,15 @@
 [gd_scene load_steps=20 format=3 uid="uid://vmqvittdn3u6"]
 
-[ext_resource type="Script" path="res://core/data/scripts/characters/enemies/blade_spinner/blade_spinner_controller.gd" id="1_oyakm"]
-[ext_resource type="Script" path="res://core/data/classes/state_machines/characters/enemies/blade_spinner/blade_spinner_state_machine.gd" id="2_gf0i7"]
-[ext_resource type="Script" path="res://core/data/classes/state_machines/characters/enemies/blade_spinner/states/wander_state.gd" id="3_iw2sp"]
+[ext_resource type="Script" uid="uid://cpvlnifrhcmo" path="res://core/data/scripts/characters/enemies/blade_spinner/blade_spinner_controller.gd" id="1_oyakm"]
+[ext_resource type="Script" uid="uid://d2j8l5mqbsfsl" path="res://core/data/classes/state_machines/characters/enemies/blade_spinner/blade_spinner_state_machine.gd" id="2_gf0i7"]
+[ext_resource type="Script" uid="uid://c7613trxc4lqa" path="res://core/data/classes/state_machines/characters/enemies/blade_spinner/states/wander_state.gd" id="3_iw2sp"]
 [ext_resource type="Texture2D" uid="uid://c8cixkr5qqjsc" path="res://core/assets/resources/characters/enemies/blade_spinner/blade_spinner_body_purple.tres" id="4_p831d"]
+[ext_resource type="Script" uid="uid://dn6ml7avry7u1" path="res://core/data/components/movement_component/enemy_movement_component.gd" id="4_s1ee8"]
 [ext_resource type="Texture2D" uid="uid://p6aqx4ahhtt8" path="res://core/assets/resources/characters/enemies/blade_spinner/blade_spinner_blades_yellow.tres" id="5_p8p4h"]
 [ext_resource type="Texture2D" uid="uid://b1gsky20qkomb" path="res://core/assets/resources/characters/enemies/blade_spinner/blade_spinner_head_green.tres" id="6_wd5hr"]
-[ext_resource type="Script" path="res://core/data/classes/components/movement_component/enemies/enemy_movement_component.gd" id="7_b8308"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rtba3"]
-radius = 8.0
+radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p6bbj"]
 radius = 9.0
@@ -34,7 +34,9 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ddfsf"]
 resource_name = "spin"
+length = 0.1250125
 loop_mode = 1
+step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -42,16 +44,16 @@ tracks/0/path = NodePath("BodySprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hqvkr"]
 _data = {
-"RESET": SubResource("Animation_uxpe3"),
-"spin": SubResource("Animation_ddfsf")
+&"RESET": SubResource("Animation_uxpe3"),
+&"spin": SubResource("Animation_ddfsf")
 }
 
 [sub_resource type="Animation" id="Animation_2dyci"]
@@ -71,7 +73,9 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_67v2b"]
 resource_name = "spin"
+length = 0.250005
 loop_mode = 1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -79,16 +83,16 @@ tracks/0/path = NodePath("BladesSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.049999997, 0.099999994, 0.15, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+"values": [0, 1, 2, 3, 4]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mqk76"]
 _data = {
-"RESET": SubResource("Animation_2dyci"),
-"spin": SubResource("Animation_67v2b")
+&"RESET": SubResource("Animation_2dyci"),
+&"spin": SubResource("Animation_67v2b")
 }
 
 [sub_resource type="Animation" id="Animation_voegt"]
@@ -108,11 +112,13 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_0pibx"]
 resource_name = "temp"
+length = 0.2500125
+step = 0.125
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t4wly"]
 _data = {
-"RESET": SubResource("Animation_voegt"),
-"temp": SubResource("Animation_0pibx")
+&"RESET": SubResource("Animation_voegt"),
+&"temp": SubResource("Animation_0pibx")
 }
 
 [node name="BladeSpinner" type="CharacterBody2D"]
@@ -125,15 +131,17 @@ movement_component = NodePath("GameEnemyMovementComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rtba3")
 
-[node name="BladeSpinnerStateMachine" type="Node" parent="."]
+[node name="BladeSpinnerStateMachine" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("2_gf0i7")
+actor = NodePath("..")
 initial_state = NodePath("BladeSpinnerWanderState")
 
 [node name="BladeSpinnerWanderState" type="Node" parent="BladeSpinnerStateMachine"]
 script = ExtResource("3_iw2sp")
 
-[node name="GameEnemyMovementComponent" type="Node" parent="."]
-script = ExtResource("7_b8308")
+[node name="GameEnemyMovementComponent" type="Node2D" parent="."]
+script = ExtResource("4_s1ee8")
+actor = NodePath("..")
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 1024
@@ -150,7 +158,7 @@ collision_mask = 2816
 shape = SubResource("CircleShape2D_k5yjm")
 
 [node name="WallDetector" type="RayCast2D" parent="."]
-target_position = Vector2(9, 0)
+target_position = Vector2(8, 0)
 
 [node name="BodySprite" type="Sprite2D" parent="."]
 texture = ExtResource("4_p831d")
@@ -165,17 +173,17 @@ hframes = 2
 
 [node name="BodyAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_hqvkr")
+&"": SubResource("AnimationLibrary_hqvkr")
 }
 autoplay = "spin"
 
 [node name="BladesAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_mqk76")
+&"": SubResource("AnimationLibrary_mqk76")
 }
 autoplay = "spin"
 
 [node name="HeadAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_t4wly")
+&"": SubResource("AnimationLibrary_t4wly")
 }

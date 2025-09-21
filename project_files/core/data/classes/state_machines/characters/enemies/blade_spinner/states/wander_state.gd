@@ -3,7 +3,7 @@ extends GameBladeSpinnerState
 
 
 var direction : Vector2 = Vector2.RIGHT
-var wall_detection_distance : float = 9
+var wall_detection_distance : float = 8
 var clockwise : bool = true
 
 

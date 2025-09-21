@@ -13,11 +13,14 @@ func _ledge_hop():
 
 
 func _get_gravity() -> float:
-	return actor.jump_gravity if actor.velocity.y < 0.0 else actor.fall_gravity
+	if actor.velocity.y < 0.0 or Input.is_action_pressed("jump"):
+		return actor.jump_gravity
+	else:
+		return actor.fall_gravity
 
 
 func _apply_coyote_time():
-	if GameSettings.is_coyote_time_allowed:
+	if GameSettings.is_coyote_time_enabled:
 		if actor.coyote_timer.is_stopped() and not actor.had_coyote_time and not actor.has_jumped:
 			actor.coyote_timer.start()
 			actor.velocity.y = 0
@@ -33,5 +36,5 @@ func _get_x_input() -> float:
 	return Input.get_action_strength("right") - Input.get_action_strength("left")
 
 
-func _get_direction() -> Vector2:
+func _get_dir() -> Vector2:
 	return Vector2(_get_x_input(), -1.0 if Input.is_action_just_pressed("jump") and state_machine.actor.has_jumped else 1.0)

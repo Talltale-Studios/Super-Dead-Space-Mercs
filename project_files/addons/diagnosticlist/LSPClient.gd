@@ -46,24 +46,38 @@ func disconnect_lsp() -> void:
     _client.disconnect_from_host()
 
 
-func connect_lsp() -> void:
+## Connect to the LSP server using host and port specified in the editor config.
+func connect_lsp() -> bool:
     var settings := EditorInterface.get_editor_settings()
     var port: int = settings.get("network/language_server/remote_port")
     var host: String = settings.get("network/language_server/remote_host")
+    return connect_lsp_at(host, port)
 
+
+## Connect to the LSP server at the given host and port.
+func connect_lsp_at(host: String, port: int) -> bool:
     var err := _client.connect_to_host(host, port)
 
     if err != OK:
         log_error("Failed to connect to LSP server: %s" % err)
+        return false
 
     # Enable processing
     _id = 0
     _timer.start()
     _reset_tick_interval()
 
+    return true
 
-func update_diagnostics(file_path: String, content: String) -> void:
-    var uri := _res_path_to_lsp_uri(file_path)
+
+func is_lsp_connected() -> bool:
+    return _client.get_status() == StreamPeerTCP.STATUS_CONNECTED
+
+
+## Sends a didOpen/didClose notification request, which results in publishDiagnostics reply being sent.
+## Expects "res_path" to be proper res:// uri.
+func update_diagnostics(res_path: String, content: String) -> void:
+    var uri := _res_path_to_lsp_uri(res_path)
 
     _send_notification("textDocument/didOpen", {
         "textDocument": {

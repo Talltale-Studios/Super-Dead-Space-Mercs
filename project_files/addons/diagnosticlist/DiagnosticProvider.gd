@@ -1,6 +1,11 @@
 extends RefCounted
 class_name DiagnosticList_DiagnosticProvider
 
+const IGNORE_FILES: Array[String] = [
+    ".gdignore",
+    ".diagnostic_ignore",
+]
+
 ## Triggered when new diagnostics for a file arrived.
 signal on_publish_diagnostics(diagnostics: DiagnosticList_Diagnostic.Pack)
 
@@ -27,6 +32,7 @@ var _num_outstanding: int = 0
 var _dirty: bool = true
 var _refresh_time: int = 0
 var _file_cache := {}  # Dict[String, FileCache]
+var _additional_ignore_dirs: Array[String] = []
 
 
 func _init(client: DiagnosticList_LSPClient) -> void:
@@ -34,18 +40,23 @@ func _init(client: DiagnosticList_LSPClient) -> void:
     _client.on_publish_diagnostics.connect(_on_publish_diagnostics)
     _client.on_jsonrpc_error.connect(_on_jsonrpc_error)
 
-    var fs := EditorInterface.get_resource_filesystem()
+    if Engine.is_editor_hint():
+        var fs := EditorInterface.get_resource_filesystem()
 
-    # Triggered when saving, removing and moving files.
-    # Also triggers whenever the user is typing or saving in an external editor using LSP.
-    fs.script_classes_updated.connect(_on_script_classes_updated)
+        # Triggered when saving, removing and moving files.
+        # Also triggers whenever the user is typing or saving in an external editor using LSP.
+        fs.script_classes_updated.connect(_on_script_classes_updated)
 
-    # Triggered when the Godot window receives focus and when moving or deleting files
-    fs.sources_changed.connect(_on_sources_changed)
+        # Triggered when the Godot window receives focus and when moving or deleting files
+        fs.sources_changed.connect(_on_sources_changed)
 
 
 func is_updating() -> bool:
     return _num_outstanding > 0
+
+
+func set_additional_ignore_dirs(dirs: Array[String]) -> void:
+    _additional_ignore_dirs = dirs
 
 
 ## Refresh diagnostics for all scripts.
@@ -90,10 +101,13 @@ func refresh_diagnostics(force: bool = false) -> bool:
 ## Rescan the project for script files
 ## Returns true when there have been changes, otherwise false.
 func refresh_file_list() -> bool:
+    var ignore_dirs: Array[String] = []
+    ignore_dirs.assign(_additional_ignore_dirs.duplicate())
+
     if ProjectSettings.get("debug/gdscript/warnings/exclude_addons"):
-        _script_paths = _gather_scripts("res://", [ "res://addons" ])
-    else:
-        _script_paths = _gather_scripts("res://", [])
+        ignore_dirs.push_back("res://addons" )
+
+    _script_paths = _gather_scripts("res://", ignore_dirs)
 
     var modified: bool = false
 
@@ -239,8 +253,9 @@ func _gather_scripts(searchpath: String, ignore_dirs: Array[String]) -> Array[St
 
     var paths: Array[String] = []
 
-    if root.file_exists(".gdignore"):
-        return paths
+    for ignore_file in IGNORE_FILES:
+        if root.file_exists(ignore_file):
+            return paths
 
     root.include_navigational = false
     root.list_dir_begin()

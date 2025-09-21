@@ -70,7 +70,7 @@ var torso_state: int = TORSO_STATES.AIM
 var environment: int = ENVIRONMENTS.SURFACE
 var snap_vector: Vector2
 var gravity: int
-var buffered_jump: bool
+var is_jump_buffered: bool
 var jump_height: float
 var jump_release_velocity_cut: float
 var jump_time_to_peak: float

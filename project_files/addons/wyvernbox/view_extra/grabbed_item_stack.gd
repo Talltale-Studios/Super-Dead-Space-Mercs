@@ -13,7 +13,7 @@ signal input_on_inventory(event : InputEvent, grabbed_item : ItemStack, onto_ite
 ## Set [member item_input_cancelled] while handling this signal to prevent the action.
 signal input_on_empty(event : InputEvent, grabbed_item : ItemStack)
 
-@export_group("Drop")
+@export_group("Drop On Ground")
 
 ## The node whose position [method drop_on_ground] uses for spawning a ground item.
 @export var drop_at_node := NodePath("")
@@ -24,15 +24,13 @@ signal input_on_empty(event : InputEvent, grabbed_item : ItemStack)
 ## The max distance an item dropped by [method drop_on_ground] can fly.
 @export var drop_max_distance := 256.0
 
-@export_group("Drop/3D")
-
 ## The [Camera3D] used for dropping the item into a 3D scene. In 2D, unused.
 @export var drop_camera_3d := NodePath("")
 
 ## For dropping items in 3D, the physics layers to hit when determining destination position.
 @export_flags_3d_physics var drop_ray_mask := 1
 
-@export_group("View")
+@export_group("View and Gestures")
 
 ## The size of the item's texture, if its in-inventory size was [code](1, 1)[/code].
 @export var unit_size := Vector2(18, 18)
@@ -40,6 +38,9 @@ signal input_on_empty(event : InputEvent, grabbed_item : ItemStack)
 ## Hide the mouse cursor while item is grabbed. [br]
 ## If item texture lags 1 frame behind the user's cursor, set this to [code]false[/code] to reduce the "floaty" feel.
 @export var hide_cursor := false
+
+## Maximum time between clicks to register a double-click, a gesture for grabbing all items of one type. Set to 0 to disable.
+@export var double_click_time_msec := 200
 
 ## The currently grabbed stack - returns [code]null[/code] if none, or if no instances of this class exist.
 static var grabbed_stack : ItemStack:
@@ -61,6 +62,8 @@ var item_input_cancelled := false
 
 
 static var _instance : GrabbedItemStackView
+static var _last_click_time_msec := 0
+static var _last_click_pos := Vector2()
 
 var _last_input_non_pointer := false
 
@@ -103,6 +106,14 @@ static func select_cell_nearest(view : InventoryView):
 	_instance.grab_focus()
 
 
+static func double_click_valid() -> bool:
+	return (
+		_instance != null
+		&& Time.get_ticks_msec() <= _last_click_time_msec + _instance.double_click_time_msec
+		&& _last_click_pos == _instance.global_position
+	)
+
+
 func _ready():
 	if get_parent() && !(has_node("%Texture") && has_node("%Count")):
 		var new_node : Node = load("res://addons/wyvernbox_prefabs/grabbed_item_stack_view.tscn").instantiate()
@@ -125,7 +136,7 @@ func _ready():
 	focus_previous = "."
 	focus_next = "."
 
-	var new_node = Control.new()
+	var new_node := Control.new()
 	new_node.set_anchors_and_offsets_preset(PRESET_FULL_RECT)
 	new_node.gui_input.connect(_drop_surface_input)
 	new_node.name = "DropSurface"
@@ -152,7 +163,7 @@ func update_stack(new_stack: ItemStack, unit_size: Vector2 = unit_size, show_bac
 ## Grabs a stack, removing it from its inventory.
 func grab(item_stack : ItemStack):
 	if item_stack.inventory != null:
-		var max_count = item_stack.item_type.max_stack_count
+		var max_count := item_stack.item_type.max_stack_count
 		if item_stack.count > max_count:
 			item_stack.inventory.add_items_to_stack(item_stack, -max_count)
 			item_stack = item_stack.duplicate_with_count(max_count)
@@ -176,36 +187,58 @@ func add_items_to_stack(delta : int):
 ## Drop the whole stack onto the first inventory under the cursor.
 func drop():
 	if stack == null: return
-	_any_inventory_try_drop_stack(stack)
-	update_stack(stack, unit_size, false)
+	update_stack(_any_inventory_try_drop_stack(stack), unit_size, false)
 
 ## Drop one item from the stack onto the first inventory under the cursor.
 func drop_one():
 	## If you right-click before scene loads, APPARENTLY an error is thrown here.
 	if stack == null: return
 	if stack.count == 1:
-		_any_inventory_try_drop_stack(stack)
-		update_stack(stack, unit_size, false)
+		update_stack(_any_inventory_try_drop_stack(stack), unit_size, false)
 		return
 	
-	var one = stack
-	var all_but_one = stack.duplicate_with_count(stack.count - 1)
-	stack.count = 1
+	var one := stack
+	var all_but_one := stack.duplicate_with_count(stack.count - 1)
+	one.count = 1
+	stack = null
+
 	## Drop first. This function changes stack to whatever's returned.
-	_any_inventory_try_drop_stack(stack)
+	var drop_result := _any_inventory_try_drop_stack(one)
 
 	## If nothing was there, drop the 1 and keep holding the rest.
-	if stack == null:
-		stack = all_but_one
+	if drop_result == null:
+		drop_result = all_but_one
 	
-	## If the dropped 1 was returned (can't place), combine the stacks._add_random_item
-	elif stack == one:
+	## If the dropped 1 was returned (can't place), combine the stacks.
+	elif drop_result == one:
 		one.count += all_but_one.count
 
 	## If there was something in place, just drop all instead of 1.
 	else:
 		_any_inventory_try_drop_stack(all_but_one)
 		
+	update_stack(drop_result, unit_size, false)
+
+## Gather all items that would stack with the grabbed item, from a specific inventory, until full.
+func gather_same(from_inventory : Inventory):
+	if stack == null:
+		return
+
+	var left_to_grab := stack.item_type.max_stack_count - stack.count
+	if left_to_grab == 0:
+		drop()
+		return
+
+	for x in from_inventory.items.duplicate():
+		if x.can_stack_with(stack):
+			var transfered_count := mini(left_to_grab, x.count)
+			from_inventory.add_items_to_stack(x, -transfered_count)
+			add_items_to_stack(transfered_count)
+			left_to_grab -= transfered_count
+
+		if left_to_grab == 0:
+			break
+
 	update_stack(stack, unit_size, false)
 
 
@@ -213,21 +246,22 @@ func _move_to_mouse():
 	global_position = get_global_mouse_position() - size * 0.5 * scale
 
 
-func _any_inventory_try_drop_stack(stack : ItemStack):
+func _any_inventory_try_drop_stack(stack_to_drop : ItemStack) -> ItemStack:
 	if !is_instance_valid(selected_item_inventory):
-		return
+		return stack_to_drop
 
-	var found_stack = selected_item_inventory.try_place_stackv(stack, selected_item_inventory.selected_cell)
-	if found_stack != stack:
+	var found_stack = selected_item_inventory.try_place_stackv(stack_to_drop, selected_item_inventory.selected_cell)
+	if found_stack != stack_to_drop:
 		get_viewport().set_input_as_handled()
 		if found_stack == null && hide_cursor:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		
-		update_stack(found_stack)
-		return
+		return found_stack
+
+	return stack_to_drop
 
 ## Drop the specified stack on the ground at [member drop_at_node]'s position as child of [member drop_ground_item_manager].
-func drop_on_ground(stack : ItemStack, click_pos = null) -> bool:
+func drop_on_ground(stack_to_drop : ItemStack, click_pos = null) -> bool:
 	var node := get_node_or_null(drop_at_node)
 	if !is_instance_valid(node):
 		return false
@@ -252,11 +286,12 @@ func drop_on_ground(stack : ItemStack, click_pos = null) -> bool:
 	var ground_items := get_node(drop_ground_item_manager)
 	assert(is_instance_valid(ground_items), "GrabbedItemStackView can not spawn dropped items without a GroundItemManager! Add one to the scene and check GrabbedItemStackView properties, or connect the input_on_empty(event, item_stack) signal to a script to handle the drop yourself.")
 
-	ground_items.add_item(stack, spawn_at_pos, throw_vec)
+	ground_items.add_item(stack_to_drop, spawn_at_pos, throw_vec)
 	if hide_cursor:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 	return true
+
 
 func _input(event : InputEvent):
 	if event is InputEventMouseMotion:
@@ -279,12 +314,21 @@ func _input(event : InputEvent):
 			return
 
 	if event is InputEventMouseButton:
-		if Input.is_action_pressed(&"inventory_more"): return
+		if Input.is_action_pressed(&"inventory_more"):
+			return
+
 		if event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
-			drop()
+			if double_click_valid() && selected_item_inventory != null:
+				gather_same(selected_item_inventory.inventory)
+
+			else:
+				drop()
 
 		if event.button_index == MOUSE_BUTTON_RIGHT && event.pressed:
 			drop_one()
+
+		_last_click_time_msec = Time.get_ticks_msec()
+		_last_click_pos = global_position
 
 
 func _gui_input(event : InputEvent):
@@ -356,7 +400,7 @@ func _item_grab_focus_neighbor(item : Control, direction : Vector2, items_only :
 	if direction.y < 0:
 		focus_side = SIDE_TOP
 
-	var found_nb := item.find_valid_focus_neighbor(focus_side)
+	var found_nb : Control = item.find_valid_focus_neighbor(focus_side)
 	if is_instance_valid(found_nb):
 		if items_only && !found_nb is ItemStackView:
 			return null

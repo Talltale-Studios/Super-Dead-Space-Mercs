@@ -53,4 +53,4 @@ func _input(event):
 
 
 func _on_jump_buffer_timer_timeout():
-	buffered_jump = false
+	is_jump_buffered = false

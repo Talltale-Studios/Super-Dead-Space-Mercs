@@ -32,7 +32,7 @@ enum RoundingMode {
 
 func _notification(what : int):
 	if what == NOTIFICATION_SORT_CHILDREN:
-		for x in get_children():
+		for x in get_children(true):
 			if x is Control:
 				_scale_child(x)
 
@@ -41,13 +41,6 @@ func _scale_child(child : Control):
 	var minsize := child.get_combined_minimum_size()
 	var result_scale := size / minsize
 	var result_offset := Vector2.ZERO
-	match rounding_mode:
-		RoundingMode.ROUND_LOWER:
-			result_scale = result_scale.floor()
-
-		RoundingMode.ROUND_HIGHER:
-			result_scale = result_scale.ceil()
-
 	match stretch_mode:
 		StretchMode.ASPECT_CENTERED:
 			result_scale = Vector2.ONE * min(result_scale.x, result_scale.y)
@@ -55,6 +48,17 @@ func _scale_child(child : Control):
 		StretchMode.ASPECT_COVERED:
 			result_scale = Vector2.ONE * max(result_scale.x, result_scale.y)
 	
+	match rounding_mode:
+		RoundingMode.ROUND_LOWER:
+			var try_factor := 1.0
+			while floorf(result_scale.x * try_factor) / try_factor <= 0.0 && floorf(result_scale.y * try_factor) / try_factor <= 0.0:
+				try_factor += 1
+
+			result_scale = (result_scale * Vector2(try_factor, try_factor)).floor() / Vector2(try_factor, try_factor)
+
+		RoundingMode.ROUND_HIGHER:
+			result_scale = result_scale.ceil()
+
 	var result_size := minsize * size / minsize / result_scale
 	if result_size.x < minsize.x:
 		result_offset.x = (result_size.x - minsize.x) * result_scale.x * 0.5

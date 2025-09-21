@@ -2,5 +2,3 @@
 ## [code]CharacterBody2D[/code].
 class_name GameKinematicCharacter
 extends GameKinematicEntity
-
-
