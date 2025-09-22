@@ -48,7 +48,7 @@ project/assembly_name="Super Dead Space Mercs"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/QuickPluginManager/plugin.cfg", "res://addons/collapse_folders/plugin.cfg", "res://addons/diagnosticlist/plugin.cfg", "res://addons/nv.file_system/plugin.cfg")
+enabled=PackedStringArray("res://addons/QuickPluginManager/plugin.cfg", "res://addons/collapse_folders/plugin.cfg", "res://addons/nv.file_system/plugin.cfg")
 
 [filesystem]
 
