@@ -32,7 +32,7 @@ enum ENVIRONMENTS {
 @export var surface_jump_height: float
 @export var surface_jump_release_velocity_cut: float
 @export var surface_jump_time_to_peak: float
-@export var surface_jump_time_to_drop: float
+@export var surface_jump_time_to_descend: float
 @export var surface_multijump_height_reduction: float
 @export var surface_grounded_acceleration: float
 @export var surface_airborne_acceleration: float
@@ -44,7 +44,7 @@ enum ENVIRONMENTS {
 @export var underwater_jump_height: float
 @export var underwater_jump_release_velocity_cut: float
 @export var underwater_jump_time_to_peak: float
-@export var underwater_jump_time_to_drop: float
+@export var underwater_jump_time_to_descend: float
 @export var underwater_multijump_height_reduction: float
 @export var underwater_grounded_acceleration: float
 @export var underwater_airborne_acceleration: float
@@ -56,7 +56,7 @@ enum ENVIRONMENTS {
 @export var space_jump_height: float
 @export var space_jump_release_velocity_cut: float
 @export var space_jump_time_to_peak: float
-@export var space_jump_time_to_drop: float
+@export var space_jump_time_to_descend: float
 @export var space_multijump_height_reduction: float
 @export var space_grounded_acceleration: float
 @export var space_airborne_acceleration: float
@@ -114,15 +114,15 @@ func _set_gravity_environment(env: String = "surface"):
 	if env == "surface":
 		jump_height = surface_jump_height
 		jump_time_to_peak = surface_jump_time_to_peak
-		jump_time_to_descend = surface_jump_time_to_drop
+		jump_time_to_descend = surface_jump_time_to_descend
 	if env == "underwater":
 		jump_height = underwater_jump_height
 		jump_time_to_peak = underwater_jump_time_to_peak
-		jump_time_to_descend = underwater_jump_time_to_drop
+		jump_time_to_descend = underwater_jump_time_to_descend
 	if env == "space":
 		jump_height = space_jump_height
 		jump_time_to_peak = space_jump_time_to_peak
-		jump_time_to_descend = space_jump_time_to_drop
+		jump_time_to_descend = space_jump_time_to_descend
 
 
 func _set_jump_vel_cut_environment(env: String = "surface_grounded"):

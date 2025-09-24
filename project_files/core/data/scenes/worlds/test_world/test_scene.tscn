@@ -14,10 +14,11 @@ tile_set = ExtResource("2_857wc")
 
 [node name="Platforms" type="TileMapLayer" parent="."]
 use_parent_material = true
+tile_map_data = PackedByteArray("AAALAPj/AAAEACIAACAHAPr/AAAEACIAACA=")
 tile_set = ExtResource("2_857wc")
 
 [node name="BladeSpinner" parent="." instance=ExtResource("3_yn3r3")]
 position = Vector2(192, -112)
 
 [node name="Player" parent="." instance=ExtResource("1_eu33d")]
-position = Vector2(40, 0)
+position = Vector2(22, 12)
