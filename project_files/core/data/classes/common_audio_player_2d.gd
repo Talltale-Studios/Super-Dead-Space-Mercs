@@ -2,7 +2,7 @@ class_name CommonAudioPlayer2D
 extends AudioStreamPlayer2D
 
 
-@export var change_pitch : bool
+@export var change_pitch : bool = true
 @export_range(0.0, 1.0, 0.01) var pitch_difference: float
 
 
