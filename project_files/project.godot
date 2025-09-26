@@ -24,7 +24,7 @@ project_layer_names/output=0
 [application]
 
 config/name="Super Dead Space Mercs"
-config/description="Super Dead Space Mercs, a game based on mockups and assets from the \"Space War Man\", \"Space War Man goes to TIC-80 Land\", \"Space Merc\", \"Space Merc Redux\", \"Dead Gunner\", and \"Super Dead Gunner\" asset collections."
+config/description="Super Dead Space Mercs, a game based on mockups and assets from the \"Space War Man\", \"Space War Man goes to TIC-80 Land\", \"Space Merc\", \"Space Merc Redux\", \"Dead Gunner\", \"Super Dead Gunner\", and \"Super Dead Space Gunner Merc Redux\" asset collections and works inspired by them."
 run/main_scene="uid://pb5uh775qycs"
 config/features=PackedStringArray("4.5")
 boot_splash/bg_color=Color(0, 0, 0, 1)
