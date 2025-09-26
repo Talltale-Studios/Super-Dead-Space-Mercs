@@ -19,11 +19,12 @@ resources_spreadsheet_view/dupe_arrays=true
 resources_spreadsheet_view/context_menu_on_leftclick=false
 instance_dock/scenes=[]
 diagnostic_list/auto_refresh=true
+project_layer_names/output=0
 
 [application]
 
 config/name="Super Dead Space Mercs"
-config/description="Test"
+config/description="Super Dead Space Mercs, a game based on mockups and assets from the \"Space War Man\", \"Space War Man goes to TIC-80 Land\", \"Space Merc\", \"Space Merc Redux\", \"Dead Gunner\", and \"Super Dead Gunner\" asset collections."
 run/main_scene="uid://pb5uh775qycs"
 config/features=PackedStringArray("4.5")
 boot_splash/bg_color=Color(0, 0, 0, 1)
@@ -35,6 +36,7 @@ config/icon="uid://bqaoq7auhi52n"
 CommonGlobals="*res://core/data/autoloads/common_globals.gd"
 GameSettings="*res://core/data/autoloads/game_settings.gd"
 Helpers="*res://core/data/autoloads/helpers.gd"
+LayerNames="*res://addons/layerNames/generated/layerNames.gd"
 
 [display]
 
@@ -48,7 +50,7 @@ project/assembly_name="Super Dead Space Mercs"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/QuickPluginManager/plugin.cfg", "res://addons/collapse_folders/plugin.cfg", "res://addons/nv.file_system/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoKey_SpriteFrames/plugin.cfg", "res://addons/QuickPluginManager/plugin.cfg", "res://addons/Rename/plugin.cfg", "res://addons/collapse_folders/plugin.cfg", "res://addons/diagnosticlist/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg", "res://addons/inspector_extender/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/layerNames/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/subresource_inspector/plugin.cfg", "res://addons/super_spector/plugin.cfg")
 
 [filesystem]
 

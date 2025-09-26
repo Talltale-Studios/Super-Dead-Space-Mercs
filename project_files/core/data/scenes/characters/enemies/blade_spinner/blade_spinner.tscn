@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://cpvlnifrhcmo" path="res://core/data/scripts/characters/enemies/blade_spinner/blade_spinner_controller.gd" id="1_oyakm"]
 [ext_resource type="Script" uid="uid://d2j8l5mqbsfsl" path="res://core/data/classes/state_machines/characters/enemies/blade_spinner/blade_spinner_state_machine.gd" id="2_gf0i7"]
 [ext_resource type="Script" uid="uid://c7613trxc4lqa" path="res://core/data/classes/state_machines/characters/enemies/blade_spinner/states/wander_state.gd" id="3_iw2sp"]
-[ext_resource type="Texture2D" uid="uid://c8cixkr5qqjsc" path="res://core/assets/resources/characters/enemies/blade_spinner/blade_spinner_body_purple.tres" id="4_p831d"]
+[ext_resource type="Texture2D" uid="uid://c8cixkr5qqjsc" path="res://core/resources/characters/enemies/blade_spinner/blade_spinner_body_purple.tres" id="4_p831d"]
 [ext_resource type="Script" uid="uid://dn6ml7avry7u1" path="res://core/data/components/movement_component/enemy_movement_component.gd" id="4_s1ee8"]
-[ext_resource type="Texture2D" uid="uid://p6aqx4ahhtt8" path="res://core/assets/resources/characters/enemies/blade_spinner/blade_spinner_blades_yellow.tres" id="5_p8p4h"]
-[ext_resource type="Texture2D" uid="uid://b1gsky20qkomb" path="res://core/assets/resources/characters/enemies/blade_spinner/blade_spinner_head_green.tres" id="6_wd5hr"]
+[ext_resource type="Texture2D" uid="uid://p6aqx4ahhtt8" path="res://core/resources/characters/enemies/blade_spinner/blade_spinner_blades_yellow.tres" id="5_p8p4h"]
+[ext_resource type="Texture2D" uid="uid://b1gsky20qkomb" path="res://core/resources/characters/enemies/blade_spinner/blade_spinner_head_green.tres" id="6_wd5hr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rtba3"]
 radius = 7.0
