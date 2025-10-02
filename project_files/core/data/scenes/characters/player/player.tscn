@@ -4,15 +4,14 @@
 [ext_resource type="Script" uid="uid://oouwxm0t88w8" path="res://core/data/classes/state_machines/characters/player/player_state_machine.gd" id="2_nbym7"]
 [ext_resource type="Script" uid="uid://bpwffk2aukmso" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_stand_state.gd" id="3_qqj56"]
 [ext_resource type="Script" uid="uid://cg7p37g5rvlm7" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_fall_state.gd" id="4_w0b5q"]
-[ext_resource type="Texture2D" path="res://core/assets/resources/characters/player/weaponflash/weaponflash.tres" id="4_y15yd"]
-[ext_resource type="Script" uid="uid://clt2unjhgrdp7" path="res://core/data/classes/state_machines/characters/player/states/leg_states/player_leg_jump_hang_state.gd" id="5_1aitn"]
+[ext_resource type="Texture2D" path="res://core/resources/characters/player/weaponflash/weaponflash.tres" id="4_y15yd"]
 [ext_resource type="Script" uid="uid://c8a83c5mi480n" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_jump_state.gd" id="5_dk60t"]
 [ext_resource type="Script" uid="uid://bsv2ny0kqbmu2" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_run_state.gd" id="6_sjclp"]
 [ext_resource type="Script" uid="uid://bamioif3eyqx2" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_crouch_state.gd" id="7_oyvdc"]
 [ext_resource type="Script" uid="uid://bdtsmt14gko10" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_climb_state.gd" id="8_oihgp"]
 [ext_resource type="Script" uid="uid://3mnr7dma4ql" path="res://core/data/components/movement_component/player_movement_component.gd" id="9_0t0xf"]
-[ext_resource type="Texture2D" uid="uid://c5yihkdl8wki6" path="res://core/assets/resources/characters/player/legs/player_legs_01_all.tres" id="10_0j3vm"]
-[ext_resource type="Texture2D" uid="uid://mfihf6k6xk2e" path="res://core/assets/resources/characters/player/torso/player_torso_01_aim.tres" id="10_yubrf"]
+[ext_resource type="Texture2D" uid="uid://c5yihkdl8wki6" path="res://core/resources/characters/player/legs/player_legs_01_all.tres" id="10_0j3vm"]
+[ext_resource type="Texture2D" uid="uid://mfihf6k6xk2e" path="res://core/resources/characters/player/torso/player_torso_01_aim.tres" id="10_yubrf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0j3vm"]
 radius = 6.0
