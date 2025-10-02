@@ -3,8 +3,7 @@ class_name GameStateMachine
 extends Node
 
 
-const DEBUG: bool = true
-
+@export var debug: bool = false
 
 @export var actor : PhysicsBody2D
 ## Path to the initial active state. It is exported so that the
@@ -18,7 +17,7 @@ var max_state_history_size: int = 5
 
 ## The current active state.
 ## At the start of the game, we get the [code]initial_state[/code].
-var current_state: Object
+var current_state: GameState
 
 
 func _ready() -> void:
@@ -30,10 +29,10 @@ func _ready() -> void:
 ## Change to a new state
 func change_state(new_state: String) -> void:
 	state_history.append(current_state.name)
-	
+
 	if state_history.size() > max_state_history_size:
 		state_history.pop_front()
-	
+
 	current_state = get_node(new_state.to_pascal_case())
 	_enter_state()
 
@@ -46,7 +45,7 @@ func back() -> void:
 
 
 func _enter_state() -> void:
-	if DEBUG:
+	if debug:
 		print("Entering State: ", current_state.name)
 	# Give the new state a reference to this statemachine script
 	current_state.state_machine = self
@@ -56,30 +55,26 @@ func _enter_state() -> void:
 # Route game loop function calls to
 # current state handler method if it exists
 func _process(delta: float) -> void:
-	if current_state.has_method("process"):
-		current_state.process(delta)
+	current_state.update(delta)
 
 
 func _physics_process(delta: float) -> void:
-	if current_state.has_method("physics_process"):
-		current_state.physics_process(delta)
+	current_state.state_handler(delta)
+	current_state.update_physics(delta)
 
 
 func _input(event: InputEvent) -> void:
-	if current_state.has_method("input"):
-		current_state.input(event)
+	current_state.compute_input(event)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if current_state.has_method("unhandled_input"):
-		current_state.unhandled_input(event)
+	current_state.compute_unhandled_input(event)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if current_state.has_method("unhandled_key_input"):
-		current_state.unhandled_key_input(event)
+	current_state.compute_unhandled_key_input(event)
 
 
 func _notification(what: int) -> void:
-	if is_instance_valid(current_state) and current_state.has_method("notification_custom"):
+	if is_instance_valid(current_state):
 		current_state.notification_custom(what)

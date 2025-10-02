@@ -3,6 +3,9 @@ class_name GameState
 extends Node
 
 
+var active: bool = false
+
+
 ## Reference to the state machine, to call its [code]transition_to()[/code]
 ## method directly.
 ## It adds a dependency between the state and the state machine objects.
@@ -15,9 +18,13 @@ func enter_state() -> void:
 	pass
 
 
+func activate_state() -> void:
+	active = true
+
+
 ## Virtual function. Called by the state machine before changing the active state.
 func exit_state() -> void:
-	pass
+	active = false
 
 
 func transition_to(state_name: String) -> void:
@@ -25,28 +32,37 @@ func transition_to(state_name: String) -> void:
 	state_machine.change_state(state_name)
 
 
-## Virtual function. Receives events from the [code]_physics()[/code] callback.
-func process(_delta: float) -> void:
+## Virtual function. Receives events from the [code]_process()[/code] callback. Used for making visual changes.
+func update(_delta: float) -> void:
+	pass
+
+
+## Virtual function. Receives events from the [code]_process()[/code] callback. Used for computations.
+func compute(_delta: float) -> void:
+	pass
+
+
+func state_handler(_delta: float) -> void:
 	pass
 
 
 ## Virtual function. Receives events from the [code]_physics_process()[/code] callback.
-func physics_process(_delta: float) -> void:
+func update_physics(_delta: float) -> void:
 	pass
 
 
 ## Virtual function. Receives events from the [code]_input()[/code] callback.
-func input(_event: InputEvent) -> void:
+func compute_input(_event: InputEvent) -> void:
 	pass
 
 
 ## Virtual function. Receives events from the [code]_unhandled_input()[/code] callback.
-func unhandled_input(_event: InputEvent) -> void:
+func compute_unhandled_input(_event: InputEvent) -> void:
 	pass
 
 
 ## Virtual function. Receives events from the [code]_unhandled_key_input()[/code] callback.
-func unhandled_key_input(_event: InputEvent) -> void:
+func compute_unhandled_key_input(_event: InputEvent) -> void:
 	pass
 
 

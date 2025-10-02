@@ -7,7 +7,7 @@ var wall_detection_distance : float = 8
 var clockwise : bool = true
 
 
-func physics_process(_delta: float) -> void:
+func update_physics(_delta: float) -> void:
 	actor.wall_detector.force_raycast_update()
 	if actor.wall_detector.is_colliding():
 		if clockwise:

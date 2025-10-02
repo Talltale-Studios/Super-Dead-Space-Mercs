@@ -48,7 +48,7 @@ project/assembly_name="Super Dead Space Mercs"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/QuickPluginManager/plugin.cfg", "res://addons/collapse_folders/plugin.cfg", "res://addons/nv.file_system/plugin.cfg")
+enabled=PackedStringArray("res://addons/QuickPluginManager/plugin.cfg", "res://addons/collapse_folders/plugin.cfg", "res://addons/diagnosticlist/plugin.cfg")
 
 [filesystem]
 
@@ -114,6 +114,8 @@ jump={
 
 [physics]
 
+2d/physics_engine="GodotPhysics2D"
+common/physics_interpolation=true
 common/enable_pause_aware_picking=true
 
 [rendering]

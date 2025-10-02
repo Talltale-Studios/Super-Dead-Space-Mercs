@@ -1,2 +1,2 @@
-class_name GamePlayerLegState
+@abstract class_name GamePlayerLegState
 extends GamePlayerState

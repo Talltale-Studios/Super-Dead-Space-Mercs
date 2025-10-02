@@ -1,14 +1,19 @@
-class_name GamePlayerLegStandState
 extends GamePlayerLegState
 
 
-func physics_process(delta: float) -> void:
-	# Flip Sprite
-	if _get_x_input() > 0:
-		actor.legs_sprite.flip_h = false
-	elif _get_x_input() < 0:
-		actor.legs_sprite.flip_h = true
-	
+func update(_delta) -> void:
+	if active:
+		# Flip Sprite
+		if _get_x_input() > 0:
+			actor.legs_sprite.flip_h = false
+		elif _get_x_input() < 0:
+			actor.legs_sprite.flip_h = true
+
+		# State animation
+		actor.legs_statemachine.travel("stand")
+
+
+func state_handler(_delta: float) -> void:
 	# State switching
 	if not is_zero_approx(_get_x_input()):
 		transition_to("run")
@@ -23,13 +28,14 @@ func physics_process(delta: float) -> void:
 		_apply_coyote_time()
 		transition_to("fall")
 		return
-	
-	# State animation
-	actor.legs_statemachine.travel("stand")
-	
-	# Movement
-	actor.snap_vector = Vector2.DOWN
-	actor.velocity.x = lerp(actor.velocity.x, 0.0, actor.friction)
-	
-	# Gravity
-	_apply_gravity(delta)
+	activate_state()
+
+
+func update_physics(delta: float) -> void:
+	if active:
+		# Movement
+		actor.snap_vector = Vector2.DOWN
+		actor.velocity.x = lerp(actor.velocity.x, 0.0, actor.friction)
+
+		# Gravity
+		_apply_gravity(delta)

@@ -1,14 +1,20 @@
-class_name GamePlayerLegFallState
 extends GamePlayerLegState
 
 
-func physics_process(delta: float) -> void:
-	# Flip Sprite
-	if _get_x_input() > 0:
-		actor.legs_sprite.flip_h = false
-	elif _get_x_input() < 0:
-		actor.legs_sprite.flip_h = true
-	
+func update(_delta: float) -> void:
+	if active:
+		# Flip Sprite
+		if _get_x_input() > 0:
+			actor.legs_sprite.flip_h = false
+		elif _get_x_input() < 0:
+			actor.legs_sprite.flip_h = true
+
+		# State animation
+		if actor.coyote_timer.is_stopped():
+			actor.legs_statemachine.travel("fall")
+
+
+func state_handler(_delta: float) -> void:
 	# Jumping and state switching
 	if actor.can_jump:
 		if actor.is_on_floor():
@@ -43,14 +49,14 @@ func physics_process(delta: float) -> void:
 		if actor.is_on_floor():
 			transition_to("stand")
 			return
+	activate_state()
 
-	# State animation
-	if actor.coyote_timer.is_stopped():
-		actor.legs_statemachine.travel("fall")
 
-	# Movement
-	actor.snap_vector = Vector2.ZERO
-	actor.velocity.x = lerp(actor.velocity.x, actor.speed * _get_x_input(), actor.acceleration)
+func update_physics(delta: float) -> void:
+	if active:
+		# Movement
+		actor.snap_vector = Vector2.ZERO
+		actor.velocity.x = lerp(actor.velocity.x, actor.speed * _get_x_input(), actor.acceleration)
 
-	# Gravity
-	_apply_gravity(delta)
+		# Gravity
+		_apply_gravity(delta)

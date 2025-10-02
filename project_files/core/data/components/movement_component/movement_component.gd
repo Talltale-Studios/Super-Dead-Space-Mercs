@@ -264,7 +264,7 @@ var is_gravity_enabled: bool = true:
 	set(value):
 		if value != is_gravity_enabled:
 			gravity_changed.emit(value)
-			
+
 		is_gravity_enabled = value
 
 var is_gravity_inverted: bool = false
@@ -288,7 +288,7 @@ var is_wall_sliding: bool =  false:
 				wall_slide_started.emit()
 			else:
 				wall_slide_finished.emit()
-		
+
 		is_wall_sliding = value
 
 var is_wall_climbing: bool = false:
@@ -298,7 +298,7 @@ var is_wall_climbing: bool = false:
 				wall_climb_started.emit()
 			else:
 				wall_climb_finished.emit()
-		
+
 		is_wall_climbing = value
 
 var is_jump_buffered: bool
@@ -331,7 +331,7 @@ func can_jump() -> bool:
 				or (is_gravity_inverted and velocity.y \
 				< -absf(jump_velocity_threshold))) and times_jumped >= 1 \
 				and times_jumped < times_can_jump
-	
+
 	return false
 
 
@@ -355,11 +355,11 @@ func can_wall_climb(direction: Vector2 = facing_direction) -> bool:
 func is_within_jumping_threshold() -> bool:
 	var is_within_threshold = jump_velocity_threshold > 0 \
 		and velocity.y < jump_velocity_threshold
-	
+
 	if is_gravity_inverted:
 		is_within_threshold = jump_velocity_threshold < 0 and velocity.y \
 			> jump_velocity_threshold
-	
+
 	return is_within_threshold
 
 
@@ -380,11 +380,11 @@ func is_jump_buffer_active() -> bool:
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
 	var parent_node = get_parent()
-	
+
 	if parent_node == null or not parent_node is Node2D:
-		warnings.append("This component needs a Node2D parent in order to work 
+		warnings.append("This component needs a Node2D parent in order to work
 			properly")
-		
+
 	return warnings
 
 
@@ -392,7 +392,7 @@ func _ready():
 	_create_coyote_timer()
 	_create_dash_duration_timer()
 	_create_wall_climb_timer()
-	
+
 	gravity_changed.connect(on_gravity_changed)
 	jumped.connect(on_jumped)
 	wall_jumped.connect(on_jumped)
@@ -407,7 +407,7 @@ func move() -> void:
 
 		actor.velocity = velocity
 		actor.move_and_slide()
-		
+
 		check_coyote_jump_time_window(was_on_floor)
 		reset_times_jumped()
 
@@ -415,14 +415,14 @@ func move() -> void:
 func move_and_collide() -> KinematicCollision2D:
 	if get_node_or_null(actor):
 		var was_on_floor: bool = actor.is_on_floor()
-	
+
 		actor.velocity = velocity
 		var collision: KinematicCollision2D = actor.move_and_collide(
 			actor.velocity * get_physics_process_delta_time())
-		
+
 		check_coyote_jump_time_window(was_on_floor)
 		reset_times_jumped()
-		
+
 		return collision
 	else:
 		return null
@@ -431,11 +431,11 @@ func move_and_collide() -> KinematicCollision2D:
 func accelerate_in_direction(direction: Vector2) -> void:
 	if not direction.is_zero_approx():
 		last_faced_direction = direction
-		
+
 	facing_direction = direction
-	
+
 	if acceleration > 0:
-		velocity = velocity.move_toward(facing_direction * max_speed, 
+		velocity = velocity.move_toward(facing_direction * max_speed,
 			acceleration * get_physics_process_delta_time())
 	else:
 		velocity = facing_direction * max_speed
@@ -443,13 +443,13 @@ func accelerate_in_direction(direction: Vector2) -> void:
 
 func accelerate_to_target(target: Node2D) -> void:
 	var target_direction: Vector2 = (target.global_position - global_position).normalized()
-	
+
 	return accelerate_in_direction(target_direction)
 
 
 func accelerate_to_position(position: Vector2) -> void:
 	var target_direction: Vector2 = (position - global_position).normalized()
-	
+
 	return accelerate_in_direction(target_direction)
 
 
@@ -464,7 +464,7 @@ func knockback(direction: Vector2, power: int = knockback_power) -> void:
 	var knockback_direction: Vector2 = (direction if direction.is_normalized() else direction.normalized()) * max(1, power)
 	velocity = knockback_direction
 	move()
-	
+
 	knockback_received.emit(direction)
 
 
@@ -475,15 +475,15 @@ func dash() -> void:
 
 func apply_dash(target_direction: Vector2 = facing_direction, speed_multiplier: float = dash_speed_multiplier) -> void:
 	times_dashed += 1
-	
+
 	velocity += target_direction * (max_speed * speed_multiplier)
 	facing_direction = target_direction
-	
+
 	_create_dash_cooldown_timer()
 	_create_dash_duration_timer()
-	
+
 	move()
-			
+
 	dashed.emit()
 
 
@@ -510,7 +510,7 @@ func get_gravity() -> float:
 func apply_gravity() -> void:
 	if is_gravity_enabled:
 		var gravity_force = get_gravity() * get_physics_process_delta_time()
-		
+
 		if is_gravity_inverted:
 			velocity.y -= gravity_force
 		else:
@@ -523,7 +523,7 @@ func limit_y_velocity() -> void:
 			velocity.y = max(velocity.y, -max_downwards_velocity)
 		else:
 			min(velocity.y, absf(max_downwards_velocity))
-	
+
 	if max_upwards_velocity > 0:
 		if is_gravity_inverted:
 			velocity.y = min(velocity.y, absf(max_upwards_velocity))
@@ -537,7 +537,7 @@ func limit_x_velocity() -> void:
 			velocity.y = max(velocity.y, -max_rightwards_velocity)
 		else:
 			min(velocity.y, absf(max_rightwards_velocity))
-	
+
 	if max_leftwards_velocity > 0:
 		if is_gravity_inverted:
 			velocity.y = min(velocity.y, absf(max_leftwards_velocity))
@@ -548,18 +548,18 @@ func limit_x_velocity() -> void:
 func invert_gravity() -> void:
 	if is_gravity_enabled:
 		jump_velocity = -jump_velocity
-		
+
 		if GameSettings.is_wall_slide_enabled:
 			wall_slide_gravity = -wall_slide_gravity
-			
+
 		if jump_velocity > 0:
 			is_gravity_inverted = true
-		
+
 		if is_gravity_inverted:
 			actor.up_direction = Vector2.DOWN
 		else:
 			actor.up_direction = Vector2.UP
-		
+
 		inverted_gravity.emit(is_gravity_inverted)
 
 
@@ -585,7 +585,7 @@ func reset_times_dashed() -> void:
 func jump():
 	if can_jump():
 		apply_jump()
-	
+
 	return self
 
 
@@ -594,7 +594,7 @@ func apply_jump() -> void:
 	times_jumped += 1
 	is_wall_sliding = false
 	is_wall_climbing = false
-	
+
 	if times_jumped > 1 and multijump_height_reduction > 0:
 		var jump_height_reduced: float = max(0, times_jumped - 1) \
 			* multijump_height_reduction
@@ -608,7 +608,7 @@ func wall_jump(direction: Vector2):
 		var wall_normal = actor.get_wall_normal()
 		var left_angle = abs(wall_normal.angle_to(Vector2.LEFT))
 		var right_angle = abs(wall_normal.angle_to(Vector2.RIGHT))
-		
+
 		if is_wall_sliding or is_wall_climbing:
 			apply_wall_jump(wall_normal)
 		elif wall_normal.is_equal_approx(Vector2.LEFT) or left_angle \
@@ -617,7 +617,7 @@ func wall_jump(direction: Vector2):
 		elif wall_normal.is_equal_approx(Vector2.RIGHT) or right_angle \
 			<= max_permissible_wall_angle:
 				apply_wall_jump(wall_normal)
-	
+
 	return self
 
 
@@ -628,53 +628,53 @@ func apply_wall_jump(wall_normal: Vector2) -> void:
 		times_jumped += 1
 	else:
 		reset_times_jumped()
-	
+
 	wall_jumped.emit(wall_normal)
 
 
 func wall_climb(direction: Vector2 = Vector2.ZERO):
 	is_wall_climbing = can_wall_climb(direction)
-	
+
 	if is_wall_climbing:
 		if is_gravity_enabled:
 			wall_climb_started.emit()
-		
+
 		var is_climbing_up = direction.is_equal_approx(Vector2.UP)
 		var wall_climb_speed_direction = wall_climb_speed_up if is_climbing_up \
 			else wall_climb_speed_down
 		var climb_force = wall_climb_speed_direction * get_physics_process_delta_time()
-		
+
 		if is_gravity_inverted:
 			if not is_climbing_up:
 				climb_force *= -1
 		else:
 			if is_climbing_up:
 				climb_force *= -1
-			
+
 		velocity.y += climb_force
-		
+
 		if is_gravity_inverted:
 			velocity.y = min(velocity.y, wall_climb_speed_direction) \
 				if is_climbing_up else max(velocity.y, -wall_climb_speed_direction)
 		else:
 			velocity.y = max(velocity.y, -wall_climb_speed_direction) \
 				if is_climbing_up else min(velocity.y, wall_climb_speed_direction)
-	
+
 	else:
 		if not is_gravity_enabled:
 			wall_climb_finished.emit()
-	
+
 	return self
 
 
 func wall_slide():
 	is_wall_sliding = can_wall_slide()
-	
+
 	if not is_wall_climbing and is_wall_sliding:
 		velocity.y += wall_slide_gravity * get_physics_process_delta_time()
 		velocity.y = max(velocity.y, wall_slide_gravity) if is_gravity_inverted \
 			else min(velocity.y, wall_slide_gravity)
-	
+
 	return self
 
 
@@ -682,7 +682,7 @@ func check_coyote_jump_time_window(was_on_floor: bool = true) -> void:
 	if GameSettings.is_coyote_jump_enabled:
 		var just_left_ledge = was_on_floor and not actor.is_on_floor() \
 			and (velocity.y >= 0 or (is_gravity_inverted and velocity.y <= 0))
-		
+
 		if just_left_ledge:
 			coyote_timer.start()
 
@@ -699,13 +699,13 @@ func enable_dash(cooldown: float = dash_cooldown, times: int = times_can_dash):
 func _create_dash_cooldown_timer() -> void:
 	if dash_cooldown_timer:
 		return
-	
+
 	dash_cooldown_timer = Timer.new()
 	dash_cooldown_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	dash_cooldown_timer.wait_time = max(0.05, dash_cooldown)
 	dash_cooldown_timer.one_shot = true
 	dash_cooldown_timer.autostart = false
-	
+
 	add_child(dash_cooldown_timer)
 	dash_cooldown_timer.timeout.connect(on_dash_cooldown_timer_timeout)
 
@@ -713,13 +713,13 @@ func _create_dash_cooldown_timer() -> void:
 func _create_dash_duration_timer() -> void:
 	if dash_duration_timer:
 		return
-	
+
 	dash_duration_timer = Timer.new()
 	dash_duration_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	dash_duration_timer.wait_time = dash_gravity_time_disabled
 	dash_duration_timer.one_shot = true
 	dash_duration_timer.autostart = false
-	
+
 	add_child(dash_duration_timer)
 	dash_duration_timer.timeout.connect(on_dash_duration_timer_timeout)
 
@@ -727,14 +727,14 @@ func _create_dash_duration_timer() -> void:
 func _create_wall_climb_timer() -> void:
 	if wall_climb_timer:
 		return
-	
+
 	wall_climb_timer = Timer.new()
 	wall_climb_timer.name = "WallClimbTimer"
 	wall_climb_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	wall_climb_timer.wait_time = wall_climb_duration
 	wall_climb_timer.one_shot = true
 	wall_climb_timer.autostart = false
-	
+
 	add_child(wall_climb_timer)
 	wall_climb_timer.timeout.connect(on_wall_climb_timer_timeout)
 
@@ -742,14 +742,14 @@ func _create_wall_climb_timer() -> void:
 func _create_suspend_gravity_timer() -> void:
 	if suspend_gravity_timer:
 		return
-	
+
 	suspend_gravity_timer = Timer.new()
 	suspend_gravity_timer.name = "SuspendGravityTimer"
 	suspend_gravity_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	suspend_gravity_timer.wait_time = suspend_gravity_duration
 	suspend_gravity_timer.one_shot = true
 	suspend_gravity_timer.autostart = false
-	
+
 	add_child(suspend_gravity_timer)
 	suspend_gravity_timer.timeout.connect(on_suspend_gravity_timeout)
 
@@ -757,28 +757,28 @@ func _create_suspend_gravity_timer() -> void:
 func _create_coyote_timer() -> void:
 	if coyote_timer:
 		return
-	
+
 	coyote_timer = Timer.new()
 	coyote_timer.name = "CoyoteTimer"
 	coyote_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	coyote_timer.wait_time = coyote_jump_time_window
 	coyote_timer.one_shot = true
 	coyote_timer.autostart = false
-	
+
 	add_child(coyote_timer)
 
 
 func _create_jump_buffer_timer() -> void:
 	if jump_buffer_timer:
 		return
-	
+
 	jump_buffer_timer = Timer.new()
 	jump_buffer_timer.name = "JumpBufferTimer"
 	jump_buffer_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	jump_buffer_timer.wait_time = jump_buffer_time_window
 	jump_buffer_timer.one_shot = true
 	jump_buffer_timer.autostart = false
-	
+
 	add_child(jump_buffer_timer)
 
 
@@ -794,12 +794,12 @@ func on_wall_climb_timer_timeout() -> void:
 	is_gravity_enabled = true
 	GameSettings.is_wall_climb_enabled = false
 	wall_climb_finished.emit()
-	
+
 	knockback(actor.get_wall_normal(), wall_climb_fatigue_knockback)
-	
+
 	if wall_climb_fatigue_cooldown > 0:
 		await (get_tree().create_timer(wall_climb_fatigue_cooldown)).timeout
-	
+
 	GameSettings.is_wall_climb_enabled = true
 
 
@@ -822,7 +822,7 @@ func on_jumped() -> void:
 	is_wall_climbing = false
 	is_wall_sliding = false
 	is_dashing = false
-	
+
 	coyote_timer.stop()
 
 
@@ -867,7 +867,7 @@ func set_environment_variables() -> void:
 			else:
 				_set_accel_env("surface_airborne")
 				_set_fric_env("surface_airborne")
-		
+
 		ENVIRONMENTS.UNDERWATER:
 			_set_jump_height_env("underwater")
 			_set_jump_time_to_peak_env("underwater")
@@ -886,7 +886,7 @@ func set_environment_variables() -> void:
 			else:
 				_set_accel_env("underwater_airborne")
 				_set_fric_env("underwater_airborne")
-		
+
 		ENVIRONMENTS.SPACE:
 			_set_jump_height_env("space")
 			_set_jump_time_to_peak_env("space")
@@ -910,10 +910,10 @@ func set_environment_variables() -> void:
 func _set_jump_height_env(env: String = "surface") -> void:
 	if env == "surface":
 		jump_height = surface_jump_height
-	
+
 	if env == "underwater":
 		jump_height = underwater_jump_height
-	
+
 	if env == "space":
 		jump_height = space_jump_height
 
@@ -921,10 +921,10 @@ func _set_jump_height_env(env: String = "surface") -> void:
 func _set_jump_time_to_peak_env(env: String = "surface") -> void:
 	if env == "surface":
 		jump_time_to_peak = surface_jump_time_to_peak
-	
+
 	if env == "underwater":
 		jump_time_to_peak = underwater_jump_time_to_peak
-	
+
 	if env == "space":
 		jump_time_to_peak = space_jump_time_to_peak
 
@@ -932,10 +932,10 @@ func _set_jump_time_to_peak_env(env: String = "surface") -> void:
 func _set_jump_time_to_drop_env(env: String = "surface") -> void:
 	if env == "surface":
 		jump_time_to_drop = surface_jump_time_to_drop
-	
+
 	if env == "underwater":
 		jump_time_to_drop = underwater_jump_time_to_drop
-	
+
 	if env == "space":
 		jump_time_to_drop = space_jump_time_to_drop
 
@@ -943,10 +943,10 @@ func _set_jump_time_to_drop_env(env: String = "surface") -> void:
 func _set_multijump_height_reduction_env(env: String = "surface") -> void:
 	if env == "surface":
 		multijump_height_reduction = surface_multijump_height_reduction
-	
+
 	if env == "underwater":
 		multijump_height_reduction = underwater_multijump_height_reduction
-	
+
 	if env == "space":
 		multijump_height_reduction = space_multijump_height_reduction
 
@@ -954,10 +954,10 @@ func _set_multijump_height_reduction_env(env: String = "surface") -> void:
 func _set_wall_slide_gravity_env(env: String = "surface") -> void:
 	if env == "surface":
 		wall_slide_gravity = surface_wall_slide_gravity
-	
+
 	if env == "underwater":
 		wall_slide_gravity = underwater_wall_slide_gravity
-	
+
 	if env == "space":
 		wall_slide_gravity = space_wall_slide_gravity
 
@@ -965,10 +965,10 @@ func _set_wall_slide_gravity_env(env: String = "surface") -> void:
 func _set_wall_climb_gravity_env(env: String = "surface") -> void:
 	if env == "surface":
 		wall_climb_gravity = surface_wall_climb_gravity
-	
+
 	if env == "underwater":
 		wall_climb_gravity = underwater_wall_climb_gravity
-	
+
 	if env == "space":
 		wall_climb_gravity = space_wall_climb_gravity
 
@@ -976,10 +976,10 @@ func _set_wall_climb_gravity_env(env: String = "surface") -> void:
 func _set_jump_release_vel_cut_env(env: String = "surface_grounded") -> void:
 	if env == "surface":
 		jump_release_velocity_cut = surface_jump_release_velocity_cut
-	
+
 	if env == "underwater":
 		jump_release_velocity_cut = underwater_jump_release_velocity_cut
-	
+
 	if env == "space":
 		jump_release_velocity_cut = space_jump_release_velocity_cut
 
@@ -987,10 +987,10 @@ func _set_jump_release_vel_cut_env(env: String = "surface_grounded") -> void:
 func _set_max_downwards_vel_env(env: String = "surface") -> void:
 	if env == "surface":
 		max_downwards_velocity = surface_max_downwards_velocity
-	
+
 	if env == "underwater":
 		max_downwards_velocity = underwater_max_downwards_velocity
-	
+
 	if env == "space":
 		max_downwards_velocity = space_max_downwards_velocity
 
@@ -998,10 +998,10 @@ func _set_max_downwards_vel_env(env: String = "surface") -> void:
 func _set_max_upwards_vel_env(env: String = "surface") -> void:
 	if env == "surface":
 		max_upwards_velocity = surface_max_upwards_velocity
-	
+
 	if env == "underwater":
 		max_upwards_velocity = underwater_max_upwards_velocity
-	
+
 	if env == "space":
 		max_upwards_velocity = space_max_upwards_velocity
 
@@ -1009,10 +1009,10 @@ func _set_max_upwards_vel_env(env: String = "surface") -> void:
 func _set_max_rightwards_vel_env(env: String = "surface") -> void:
 	if env == "surface":
 		max_rightwards_velocity = surface_max_rightwards_velocity
-	
+
 	if env == "underwater":
 		max_rightwards_velocity = underwater_max_rightwards_velocity
-	
+
 	if env == "space":
 		max_rightwards_velocity = space_max_rightwards_velocity
 
@@ -1020,10 +1020,10 @@ func _set_max_rightwards_vel_env(env: String = "surface") -> void:
 func _set_max_leftwards_vel_env(env: String = "surface") -> void:
 	if env == "surface":
 		max_leftwards_velocity = surface_max_leftwards_velocity
-	
+
 	if env == "underwater":
 		max_leftwards_velocity = underwater_max_leftwards_velocity
-	
+
 	if env == "space":
 		max_leftwards_velocity = space_max_leftwards_velocity
 
@@ -1034,13 +1034,13 @@ func _set_accel_env(env: String = "surface_grounded") -> void:
 			acceleration = surface_grounded_acceleration
 		elif coyote_timer.is_stopped() and env.ends_with("airborne"):
 			acceleration = surface_airborne_acceleration
-	
+
 	if env.begins_with("underwater"):
 		if not coyote_timer.is_stopped() or env.ends_with("grounded"):
 			acceleration = underwater_grounded_acceleration
 		elif coyote_timer.is_stopped() and env.ends_with("airborne"):
 			acceleration = underwater_airborne_acceleration
-	
+
 	if env.begins_with("space"):
 		if not coyote_timer.is_stopped() or env.ends_with("grounded"):
 			acceleration = space_grounded_acceleration
@@ -1054,13 +1054,13 @@ func _set_fric_env(env: String = "surface_grounded") -> void:
 			friction = surface_grounded_friction
 		elif coyote_timer.is_stopped() and env.contains("airborne"):
 			friction = surface_airborne_friction
-	
+
 	if env.contains("underwater"):
 		if not coyote_timer.is_stopped() or env.contains("grounded"):
 			friction = underwater_grounded_friction
 		elif coyote_timer.is_stopped() and env.contains("airborne"):
 			friction = underwater_airborne_friction
-	
+
 	if env.contains("space"):
 		if not coyote_timer.is_stopped() or env.contains("grounded"):
 			friction = space_grounded_friction

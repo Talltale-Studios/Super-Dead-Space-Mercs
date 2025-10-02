@@ -6,12 +6,12 @@ var legs_statemachine: AnimationNodeStateMachinePlayback
 
 func _physics_process(_delta):
 	legs_statemachine = legs_anim_tree["parameters/playback"]
-	
+
 	_aim()
 	if Input.is_action_pressed("shoot"):
 		var weaponflash_statemachine: AnimationNodeStateMachinePlayback = weaponflash_anim_tree["parameters/playback"]
 		weaponflash_statemachine.travel("shoot")
-	
+
 	match environment:
 		ENVIRONMENTS.SURFACE:
 			_set_gravity_environment("surface")
@@ -43,7 +43,7 @@ func _physics_process(_delta):
 			else:
 				_set_accel_environment("space_airborne")
 				_set_fric_environment("space_airborne")
-	
+
 	move_and_slide()
 
 
