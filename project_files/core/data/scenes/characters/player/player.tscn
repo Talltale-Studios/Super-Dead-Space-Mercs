@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bpwffk2aukmso" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_stand_state.gd" id="3_qqj56"]
 [ext_resource type="Script" uid="uid://cg7p37g5rvlm7" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_fall_state.gd" id="4_w0b5q"]
 [ext_resource type="Texture2D" path="res://core/resources/characters/player/weaponflash/weaponflash.tres" id="4_y15yd"]
+[ext_resource type="Script" uid="uid://clt2unjhgrdp7" path="res://core/data/classes/state_machines/characters/player/states/leg_states/player_leg_jump_hang_state.gd" id="5_1aitn"]
 [ext_resource type="Script" uid="uid://c8a83c5mi480n" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_jump_state.gd" id="5_dk60t"]
 [ext_resource type="Script" uid="uid://bsv2ny0kqbmu2" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_run_state.gd" id="6_sjclp"]
 [ext_resource type="Script" uid="uid://bamioif3eyqx2" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_crouch_state.gd" id="7_oyvdc"]
