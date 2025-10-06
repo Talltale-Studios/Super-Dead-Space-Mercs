@@ -183,7 +183,7 @@ func _set_fric_environment(env: String = "surface_grounded"):
 
 
 func _shoot():
-	var bullet = preload("res://core/data/scenes/projectiles/character_projectiles/player_projectiles/player_test_bullet.tscn").instantiate()
+	var bullet = preload("res://core/data/common/projectiles/character_projectiles/player_projectiles/player_test_bullet.tscn").instantiate()
 	bullet.spawner = self
 	get_parent().add_child(bullet)
 	bullet.global_position = muzzle.global_position

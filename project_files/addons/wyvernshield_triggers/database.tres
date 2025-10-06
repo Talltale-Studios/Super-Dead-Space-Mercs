@@ -1,36 +1,32 @@
 [gd_resource type="Resource" load_steps=11 format=3 uid="uid://bbreqrsbo132q"]
 
-[ext_resource type="Script" path="res://addons/wyvernshield_triggers/editor/wyvernshield_database.gd" id="1_hbgb2"]
-[ext_resource type="Script" path="res://addons/wyvernshield_triggers/triggers/reaction_container.gd" id="2_7go4y"]
-[ext_resource type="Script" path="res://addons/wyvernshield_triggers/triggers/trigger_reaction.gd" id="3_4q6la"]
-[ext_resource type="Script" path="res://addons/wyvernshield_triggers/editor/trigger_info.gd" id="4_23861"]
+[ext_resource type="Script" uid="uid://k7rgqlq1pfej" path="res://addons/wyvernshield_triggers/editor/wyvernshield_database.gd" id="1_hbgb2"]
+[ext_resource type="Script" uid="uid://bhhyxbgv21608" path="res://addons/wyvernshield_triggers/triggers/reaction_container.gd" id="2_7go4y"]
+[ext_resource type="Script" uid="uid://dkh3skr5y8syi" path="res://addons/wyvernshield_triggers/triggers/trigger_reaction.gd" id="3_4q6la"]
+[ext_resource type="Script" uid="uid://gcj0kaulknua" path="res://addons/wyvernshield_triggers/editor/trigger_info.gd" id="4_23861"]
 
 [sub_resource type="Resource" id="Resource_rr2g6"]
 resource_name = "Move State Changed"
 script = ExtResource("4_23861")
 trigger_name = &"move_state_changed"
-keep_initial_params = false
 property_infos = Array[String](["old_state", "new_state"])
 
 [sub_resource type="Resource" id="Resource_4wedb"]
 resource_name = "Ability Used"
 script = ExtResource("4_23861")
 trigger_name = &"ability_used"
-keep_initial_params = false
 property_infos = Array[String](["ability", "target", "spawned_nodes : Array[Node] = []"])
 
 [sub_resource type="Resource" id="Resource_gtdv2"]
 resource_name = "Ability Get Cost"
 script = ExtResource("4_23861")
 trigger_name = &"ability_get_cost"
-keep_initial_params = false
 property_infos = Array[String](["ability", "target", "cost : float"])
 
 [sub_resource type="Resource" id="Resource_8xpwb"]
 resource_name = "Hit Landed"
 script = ExtResource("4_23861")
 trigger_name = &"hit_landed"
-keep_initial_params = false
 property_infos = Array[String](["target", "with_ability", "damage : float", "unmitigated_damage : float"])
 
 [sub_resource type="Resource" id="Resource_ye17i"]
@@ -44,7 +40,6 @@ property_infos = Array[String](["from", "ability", "damage : float"])
 resource_name = "Apply Stat Derivatives"
 script = ExtResource("4_23861")
 trigger_name = &"apply_stat_derivatives"
-keep_initial_params = false
 property_infos = Array[String](["stat_sheet : StatSheet"])
 
 [resource]
@@ -52,4 +47,3 @@ script = ExtResource("1_hbgb2")
 triggers = Array[ExtResource("4_23861")]([SubResource("Resource_rr2g6"), SubResource("Resource_4wedb"), SubResource("Resource_gtdv2"), SubResource("Resource_8xpwb"), SubResource("Resource_ye17i"), SubResource("Resource_l8wok")])
 trigger_holder_script = ExtResource("2_7go4y")
 trigger_reaction_script = ExtResource("3_4q6la")
-manual_update = false
