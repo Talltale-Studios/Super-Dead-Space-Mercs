@@ -1,4 +1,3 @@
-class_name GameBladeSpinnerWanderState
 extends GameBladeSpinnerState
 
 
@@ -10,12 +9,18 @@ func ready() -> void:
 	actor.wall_detector.target_position = actor.wall_detection_distance
 
 
+func state_handler(_delta: float) -> void:
+	activate_state()
+
+
 func update_physics(_delta: float) -> void:
-	actor.wall_detector.force_raycast_update()
-	if actor.wall_detector.is_colliding():
-		if move_clockwise:
-			direction = direction.rotated(deg_to_rad(90))
+	if active:
+		actor.wall_detector.force_raycast_update()
+		if actor.wall_detector.is_colliding():
+			if move_clockwise:
+				direction = direction.rotated(deg_to_rad(actor.rotation_deg))
+			else:
+				direction = direction.rotated(deg_to_rad(-(actor.rotation_deg)))
+			actor.wall_detector.target_position = direction * actor.wall_detection_distance
 		else:
-			direction = direction.rotated(deg_to_rad(-90))
-		actor.wall_detector.target_position = direction * actor.wall_detection_distance
-	actor.velocity = actor.speed * direction
+			actor.velocity = actor.speed * direction

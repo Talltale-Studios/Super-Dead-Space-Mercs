@@ -1,8 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://vmqvittdn3u6"]
+[gd_scene load_steps=19 format=3 uid="uid://vmqvittdn3u6"]
 
 [ext_resource type="Script" uid="uid://cpvlnifrhcmo" path="res://core/data/common/characters/enemies/blade_spinner/blade_spinner_controller.gd" id="1_oyakm"]
-[ext_resource type="Script" uid="uid://d2j8l5mqbsfsl" path="res://core/data/classes/state_machines/characters/enemies/blade_spinner/blade_spinner_state_machine.gd" id="2_gf0i7"]
-[ext_resource type="Script" uid="uid://c7613trxc4lqa" path="res://core/data/classes/state_machines/characters/enemies/blade_spinner/states/wander_state.gd" id="3_iw2sp"]
+[ext_resource type="PackedScene" uid="uid://rn8iuqs4734r" path="res://core/data/common/characters/enemies/blade_spinner/blade_spinner_state_machine.tscn" id="2_bg3gv"]
 [ext_resource type="Texture2D" uid="uid://c8cixkr5qqjsc" path="res://core/resources/characters/enemies/blade_spinner/blade_spinner_body_purple.tres" id="4_p831d"]
 [ext_resource type="Script" uid="uid://dn6ml7avry7u1" path="res://core/data/components/movement_component/enemy_movement_component.gd" id="4_s1ee8"]
 [ext_resource type="Texture2D" uid="uid://p6aqx4ahhtt8" path="res://core/resources/characters/enemies/blade_spinner/blade_spinner_blades_yellow.tres" id="5_p8p4h"]
@@ -125,19 +124,14 @@ _data = {
 collision_layer = 1024
 collision_mask = 3
 script = ExtResource("1_oyakm")
-speed = 25.0
 movement_component = NodePath("GameEnemyMovementComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rtba3")
+disabled = true
 
-[node name="BladeSpinnerStateMachine" type="Node" parent="." node_paths=PackedStringArray("actor")]
-script = ExtResource("2_gf0i7")
+[node name="BladeSpinnerStateMachine" parent="." node_paths=PackedStringArray("actor") instance=ExtResource("2_bg3gv")]
 actor = NodePath("..")
-initial_state = NodePath("BladeSpinnerWanderState")
-
-[node name="BladeSpinnerWanderState" type="Node" parent="BladeSpinnerStateMachine"]
-script = ExtResource("3_iw2sp")
 
 [node name="GameEnemyMovementComponent" type="Node2D" parent="."]
 script = ExtResource("4_s1ee8")
@@ -175,7 +169,6 @@ hframes = 2
 libraries = {
 &"": SubResource("AnimationLibrary_hqvkr")
 }
-autoplay = "spin"
 
 [node name="BladesAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

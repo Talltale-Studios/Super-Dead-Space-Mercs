@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://rn8iuqs4734r"]
+
+[ext_resource type="Script" uid="uid://d2j8l5mqbsfsl" path="res://core/data/classes/state_machines/characters/enemies/blade_spinner/blade_spinner_state_machine.gd" id="1_ymj3x"]
+[ext_resource type="Script" uid="uid://c7613trxc4lqa" path="res://core/data/classes/state_machines/characters/enemies/blade_spinner/states/wander_state.gd" id="2_ckspo"]
+
+[node name="BladeSpinnerStateMachine" type="Node"]
+script = ExtResource("1_ymj3x")
+initial_state = NodePath("BladeSpinnerWanderState")
+
+[node name="BladeSpinnerWanderState" type="Node" parent="."]
+script = ExtResource("2_ckspo")

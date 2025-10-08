@@ -9,10 +9,9 @@
 [ext_resource type="Script" uid="uid://bamioif3eyqx2" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_crouch_state.gd" id="7_yp5o4"]
 [ext_resource type="Script" uid="uid://bdtsmt14gko10" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_climb_state.gd" id="8_7ix4y"]
 
-[node name="PlayerStateMachine" type="Node" node_paths=PackedStringArray("actor")]
+[node name="PlayerStateMachine" type="Node"]
 script = ExtResource("1_xxph3")
 debug = true
-actor = NodePath("")
 initial_state = NodePath("PlayerLegStandState")
 
 [node name="PlayerLegStandState" type="Node" parent="."]
