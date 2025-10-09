@@ -97,7 +97,7 @@ var fall_gravity: float:
 
 @onready var torso_sprite: Sprite2D = $TorsoSprite
 @onready var legs_sprite: Sprite2D = $LegsSprite
-@onready var weaponflash_sprite: Sprite2D = $WeaponflashSprite
+@onready var weaponflash_sprite: Sprite2D = $TorsoSprite/WeaponflashSprite
 @onready var muzzle: Marker2D = $TorsoSprite/Muzzle
 @onready var torso_anim_player: AnimationPlayer = $TorsoAnimationPlayer
 @onready var legs_anim_player: AnimationPlayer = $LegsAnimationPlayer

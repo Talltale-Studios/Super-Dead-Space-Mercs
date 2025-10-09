@@ -1,6 +1,6 @@
 [gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://ckrseyoew2l1b"]
 
-[ext_resource type="Texture2D" uid="uid://b35rioddq8kbb" path="res://core/assets/textures/characters/player/player_torso_sheet_02.png" id="1_jxyfn"]
+[ext_resource type="Texture2D" uid="uid://b35rioddq8kbb" path="res://core/assets/textures/characters/player/torso/player_torso_sheet_02.png" id="1_jxyfn"]
 
 [resource]
 atlas = ExtResource("1_jxyfn")

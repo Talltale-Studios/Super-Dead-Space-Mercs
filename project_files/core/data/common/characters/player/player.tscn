@@ -1,14 +1,14 @@
-[gd_scene load_steps=158 format=3 uid="uid://y4rbi5ibv6li"]
+[gd_scene load_steps=161 format=3 uid="uid://y4rbi5ibv6li"]
 
 [ext_resource type="Script" uid="uid://5cv684qmh7ts" path="res://core/data/common/characters/player/player_controller.gd" id="1_vgxc6"]
 [ext_resource type="PackedScene" uid="uid://dub8sg7st4ep4" path="res://core/data/common/characters/player/player_state_machine.tscn" id="2_rjf7r"]
-[ext_resource type="Texture2D" uid="uid://yxqax504wlt4" path="res://core/resources/characters/player/weaponflash/weaponflash.tres" id="4_y15yd"]
+[ext_resource type="Texture2D" uid="uid://yxqax504wlt4" path="res://core/assets/textures/characters/player/weapon_flash/weaponflash.tres" id="4_y15yd"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="7_ogiaa"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_7l7rj"]
 [ext_resource type="Script" uid="uid://3mnr7dma4ql" path="res://core/data/components/movement_component/player_movement_component.gd" id="9_0t0xf"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="9_7l7rj"]
-[ext_resource type="Texture2D" uid="uid://c5yihkdl8wki6" path="res://core/resources/characters/player/legs/player_legs_01_all.tres" id="10_0j3vm"]
-[ext_resource type="Texture2D" uid="uid://mfihf6k6xk2e" path="res://core/resources/characters/player/torso/player_torso_01_aim.tres" id="10_yubrf"]
+[ext_resource type="Texture2D" uid="uid://c5yihkdl8wki6" path="res://core/assets/textures/characters/player/legs/player_legs_01.tres" id="10_0j3vm"]
+[ext_resource type="Texture2D" uid="uid://mfihf6k6xk2e" path="res://core/assets/textures/characters/player/torso/player_torso_01_aim.tres" id="10_yubrf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0j3vm"]
 radius = 6.0
@@ -48,18 +48,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, -16)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WeaponflashSprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -16)]
-}
 
 [sub_resource type="Animation" id="Animation_esoof"]
 resource_name = "dash"
@@ -76,7 +64,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [3]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -85,18 +73,6 @@ tracks/1/path = NodePath("TorsoSprite:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -23)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WeaponflashSprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -118,7 +94,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [2]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -127,18 +103,6 @@ tracks/1/path = NodePath("TorsoSprite:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -23)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WeaponflashSprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -160,7 +124,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [3]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -169,18 +133,6 @@ tracks/1/path = NodePath("TorsoSprite:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -23)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WeaponflashSprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -189,9 +141,9 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="55"]
 resource_name = "run"
-length = 0.5000125
+length = 0.3333361
 loop_mode = 1
-step = 0.125
+step = 0.027777778
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -199,34 +151,22 @@ tracks/0/path = NodePath("LegsSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25, 0.375),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.027777778, 0.055555556, 0.083333336, 0.11111111, 0.1388889, 0.16666667, 0.19444445, 0.22222222, 0.25, 0.2777778, 0.30555555),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [2, 3, 4, 5]
+"values": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("TorsoSprite:position")
-tracks/1/interp = 1
+tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.027777778, 0.055555556, 0.083333336, 0.11111111, 0.1388889, 0.16666667, 0.19444445, 0.22222222, 0.25, 0.2777778, 0.30555555),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, -23)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WeaponflashSprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -23)]
+"values": [Vector2(0, -25), Vector2(0, -25), Vector2(0, -24), Vector2(0, -23), Vector2(0, -24), Vector2(0, -24), Vector2(0, -25), Vector2(0, -25), Vector2(0, -24), Vector2(0, -23), Vector2(0, -24), Vector2(0, -24)]
 }
 
 [sub_resource type="Animation" id="56"]
@@ -258,13 +198,31 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, -23)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WeaponflashSprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+
+[sub_resource type="Animation" id="Animation_7l7rj"]
+resource_name = "dash_end"
+length = 0.1
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LegsSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TorsoSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -276,6 +234,7 @@ _data = {
 &"climb": SubResource("51"),
 &"crouch": SubResource("52"),
 &"dash": SubResource("Animation_esoof"),
+&"dash_end": SubResource("Animation_7l7rj"),
 &"fall": SubResource("53"),
 &"jump": SubResource("54"),
 &"run": SubResource("55"),
@@ -284,6 +243,12 @@ _data = {
 
 [sub_resource type="AnimationNodeAnimation" id="66"]
 animation = &"crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bhfwn"]
+animation = &"dash"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7l7rj"]
+animation = &"dash_end"
 
 [sub_resource type="AnimationNodeAnimation" id="74"]
 animation = &"fall"
@@ -333,6 +298,10 @@ states/End/position = Vector2(31, 110)
 states/Start/position = Vector2(31, 37)
 states/crouch/node = SubResource("66")
 states/crouch/position = Vector2(167.267, 180)
+states/dash/node = SubResource("AnimationNodeAnimation_bhfwn")
+states/dash/position = Vector2(611.2675, 37)
+states/dash_end/node = SubResource("AnimationNodeAnimation_7l7rj")
+states/dash_end/position = Vector2(611.2675, 180)
 states/fall/node = SubResource("74")
 states/fall/position = Vector2(304.267, 292)
 states/jump/node = SubResource("67")
@@ -342,7 +311,7 @@ states/run/position = Vector2(442.267, 37)
 states/stand/node = SubResource("63")
 states/stand/position = Vector2(167.267, 37)
 transitions = ["stand", "run", SubResource("64"), "run", "stand", SubResource("65"), "stand", "jump", SubResource("68"), "run", "jump", SubResource("69"), "jump", "stand", SubResource("70"), "stand", "crouch", SubResource("71"), "crouch", "stand", SubResource("72"), "run", "crouch", SubResource("73"), "run", "fall", SubResource("75"), "jump", "fall", SubResource("76"), "crouch", "fall", SubResource("77"), "stand", "fall", SubResource("78"), "fall", "stand", SubResource("79"), "fall", "jump", SubResource("80"), "Start", "stand", SubResource("AnimationNodeStateMachineTransition_oupdm")]
-graph_offset = Vector2(-84.7325, 33.784)
+graph_offset = Vector2(-172.96777, -33.014347)
 
 [sub_resource type="Animation" id="Animation_mwyeb"]
 length = 0.001
@@ -2947,7 +2916,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -2959,7 +2928,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2979,7 +2948,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -2991,7 +2960,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3007,7 +2976,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3019,7 +2988,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3035,7 +3004,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3047,7 +3016,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3063,7 +3032,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3075,7 +3044,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3091,7 +3060,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3103,7 +3072,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3119,7 +3088,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3131,7 +3100,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3147,7 +3116,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3159,7 +3128,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3175,7 +3144,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3187,7 +3156,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3203,7 +3172,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3215,7 +3184,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3231,7 +3200,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3243,7 +3212,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3259,7 +3228,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3271,7 +3240,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3287,7 +3256,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3299,7 +3268,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3315,7 +3284,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3327,7 +3296,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3343,7 +3312,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3355,7 +3324,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3371,7 +3340,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3383,7 +3352,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3399,7 +3368,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3411,7 +3380,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3427,7 +3396,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3439,7 +3408,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3455,7 +3424,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3467,7 +3436,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3483,7 +3452,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3495,7 +3464,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3511,7 +3480,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3523,7 +3492,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3539,7 +3508,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3551,7 +3520,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3567,7 +3536,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3579,7 +3548,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3595,7 +3564,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3607,7 +3576,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3623,7 +3592,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3635,7 +3604,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3651,7 +3620,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3663,7 +3632,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3679,7 +3648,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3691,7 +3660,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3707,7 +3676,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3719,7 +3688,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3735,7 +3704,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3747,7 +3716,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3763,7 +3732,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3775,7 +3744,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3791,7 +3760,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3803,7 +3772,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3819,7 +3788,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3831,7 +3800,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3847,7 +3816,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3859,7 +3828,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3875,7 +3844,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3887,7 +3856,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3903,7 +3872,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3915,7 +3884,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3931,7 +3900,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3943,7 +3912,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3959,7 +3928,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3971,7 +3940,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3987,7 +3956,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3999,7 +3968,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4015,7 +3984,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4027,7 +3996,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4043,7 +4012,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4055,7 +4024,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4071,7 +4040,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4083,7 +4052,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4099,7 +4068,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4111,7 +4080,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4127,7 +4096,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4139,7 +4108,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4155,7 +4124,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4167,7 +4136,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4183,7 +4152,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4195,7 +4164,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4211,7 +4180,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4223,7 +4192,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4239,7 +4208,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4251,7 +4220,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4267,7 +4236,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4279,7 +4248,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4295,7 +4264,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4307,7 +4276,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4323,7 +4292,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4335,7 +4304,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4351,7 +4320,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:frame")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4363,7 +4332,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponflashSprite:flip_h")
+tracks/1/path = NodePath("TorsoSprite/WeaponflashSprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4434,7 +4403,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:visible")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4450,7 +4419,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:visible")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4480,7 +4449,7 @@ length = 0.03333667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponflashSprite:visible")
+tracks/0/path = NodePath("TorsoSprite/WeaponflashSprite:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4532,7 +4501,7 @@ floor_constant_speed = true
 floor_max_angle = 1.0472
 floor_snap_length = 8.0
 script = ExtResource("1_vgxc6")
-speed = 200
+speed = 210
 max_jumps = 2
 surface_jump_height = 72.0
 surface_jump_release_velocity_cut = 0.5
@@ -4588,7 +4557,7 @@ target_position = Vector2(0, 4)
 texture_filter = 1
 position = Vector2(0, -23)
 texture = ExtResource("10_0j3vm")
-hframes = 6
+hframes = 14
 
 [node name="TorsoSprite" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -4597,17 +4566,20 @@ texture = ExtResource("10_yubrf")
 hframes = 10
 vframes = 5
 
-[node name="Muzzle" type="Marker2D" parent="TorsoSprite"]
-position = Vector2(14, 0)
-
-[node name="WeaponflashSprite" type="Sprite2D" parent="."]
+[node name="WeaponflashSprite" type="Sprite2D" parent="TorsoSprite"]
 visible = false
 z_index = 2
 texture_filter = 1
-position = Vector2(0, -23)
 texture = ExtResource("4_y15yd")
 hframes = 6
 vframes = 8
+
+[node name="Muzzle" type="Marker2D" parent="TorsoSprite"]
+position = Vector2(14, 0)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="TorsoSprite"]
+remote_path = NodePath("../WeaponflashSprite")
+use_global_coordinates = false
 
 [node name="LegsAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -4648,14 +4620,14 @@ wait_time = 0.1
 one_shot = true
 
 [node name="PhantomCamera2D" type="Node2D" parent="."]
+position = Vector2(0, -15)
 script = ExtResource("7_ogiaa")
-zoom = Vector2(2.5, 2.5)
 tween_resource = SubResource("Resource_0do0b")
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 physics_interpolation_mode = 1
-zoom = Vector2(2.5, 2.5)
+position = Vector2(0, -15)
 process_callback = 0
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]

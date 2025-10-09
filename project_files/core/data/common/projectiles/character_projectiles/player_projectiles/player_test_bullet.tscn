@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cxdotp6lv2mlp"]
 
 [ext_resource type="Script" uid="uid://d2nl8jtmt74vb" path="res://core/data/common/projectiles/character_projectiles/player_projectiles/player_test_bullet.gd" id="1_qsv7k"]
-[ext_resource type="Texture2D" uid="uid://bwdn5dn2l8pgk" path="res://core/resources/effects/player_test_bullet.tres" id="2_xjxpu"]
+[ext_resource type="Texture2D" uid="uid://bwdn5dn2l8pgk" path="res://core/assets/textures/effects/player_test_bullet.tres" id="2_xjxpu"]
 
 [sub_resource type="Animation" id="2"]
 length = 0.001

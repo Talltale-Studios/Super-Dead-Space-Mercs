@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=4 uid="uid://pb5uh775qycs"]
 
-[ext_resource type="TileSet" uid="uid://ba4mo0bytxmit" path="res://core/resources/tiles/test_tile_set.tres" id="1_jknbc"]
+[ext_resource type="TileSet" uid="uid://ba4mo0bytxmit" path="res://core/assets/textures/tiles/test_tile_set.tres" id="1_jknbc"]
 [ext_resource type="PackedScene" uid="uid://vmqvittdn3u6" path="res://core/data/common/characters/enemies/blade_spinner/blade_spinner.tscn" id="2_25wug"]
 [ext_resource type="PackedScene" uid="uid://y4rbi5ibv6li" path="res://core/data/common/characters/player/player.tscn" id="3_prmac"]
 
