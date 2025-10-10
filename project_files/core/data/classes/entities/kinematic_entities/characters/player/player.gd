@@ -204,23 +204,23 @@ func _aim():
 			torso_anim_player.play("right")
 		
 		elif degrees > 3.75 and degrees <= 11.25:
-			torso_anim_player.play("right -1")
+			torso_anim_player.play("right -01")
 		elif degrees > 11.25 and degrees <= 18.75:
-			torso_anim_player.play("right -2")
+			torso_anim_player.play("right -02")
 		elif degrees > 18.75 and degrees <= 26.25:
-			torso_anim_player.play("right -3")
+			torso_anim_player.play("right -03")
 		elif degrees > 26.25 and degrees <= 33.75:
-			torso_anim_player.play("right -4")
+			torso_anim_player.play("right -04")
 		elif degrees > 33.75 and degrees <= 41.25:
-			torso_anim_player.play("right -5")
+			torso_anim_player.play("right -05")
 		elif degrees > 41.25 and degrees <= 48.75:
-			torso_anim_player.play("right -6")
+			torso_anim_player.play("right -06")
 		elif degrees > 48.75 and degrees <= 56.25:
-			torso_anim_player.play("right -7")
+			torso_anim_player.play("right -07")
 		elif degrees > 56.25 and degrees <= 63.75:
-			torso_anim_player.play("right -8")
+			torso_anim_player.play("right -08")
 		elif degrees > 63.75 and degrees <= 71.25:
-			torso_anim_player.play("right -9")
+			torso_anim_player.play("right -09")
 		elif degrees > 71.25 and degrees <= 78.75:
 			torso_anim_player.play("right -10")
 		elif degrees > 78.75 and degrees <= 86.25:
@@ -236,23 +236,23 @@ func _aim():
 		elif degrees > 101.25 and degrees <= 108.75:
 			torso_anim_player.play("left -10")
 		elif degrees > 108.75 and degrees <= 116.25:
-			torso_anim_player.play("left -9")
+			torso_anim_player.play("left -09")
 		elif degrees > 116.25 and degrees <= 123.75:
-			torso_anim_player.play("left -8")
+			torso_anim_player.play("left -08")
 		elif degrees > 123.75 and degrees <= 131.25:
-			torso_anim_player.play("left -7")
+			torso_anim_player.play("left -07")
 		elif degrees > 131.25 and degrees <= 138.75:
-			torso_anim_player.play("left -6")
+			torso_anim_player.play("left -06")
 		elif degrees > 138.75 and degrees <= 146.25:
-			torso_anim_player.play("left -5")
+			torso_anim_player.play("left -05")
 		elif degrees > 146.25 and degrees <= 153.75:
-			torso_anim_player.play("left -4")
+			torso_anim_player.play("left -04")
 		elif degrees > 153.75 and degrees <= 161.25:
-			torso_anim_player.play("left -3")
+			torso_anim_player.play("left -03")
 		elif degrees > 161.25 and degrees <= 168.75:
-			torso_anim_player.play("left -2")
+			torso_anim_player.play("left -02")
 		elif degrees > 168.75 and degrees <= 176.25:
-			torso_anim_player.play("left -1")
+			torso_anim_player.play("left -01")
 		
 		elif degrees > 176.25 and degrees <= 180:
 			torso_anim_player.play("left")
@@ -262,23 +262,23 @@ func _aim():
 			torso_anim_player.play("right")
 		
 		elif degrees < -3.75 and degrees >= -11.25:
-			torso_anim_player.play("right +1")
+			torso_anim_player.play("right +01")
 		elif degrees < -11.25 and degrees >= -18.75:
-			torso_anim_player.play("right +2")
+			torso_anim_player.play("right +02")
 		elif degrees < -18.75 and degrees >= -26.25:
-			torso_anim_player.play("right +3")
+			torso_anim_player.play("right +03")
 		elif degrees < -26.25 and degrees >= -33.75:
-			torso_anim_player.play("right +4")
+			torso_anim_player.play("right +04")
 		elif degrees < -33.75 and degrees >= -41.25:
-			torso_anim_player.play("right +5")
+			torso_anim_player.play("right +05")
 		elif degrees < -41.25 and degrees >= -48.75:
-			torso_anim_player.play("right +6")
+			torso_anim_player.play("right +06")
 		elif degrees < -48.75 and degrees >= -56.25:
-			torso_anim_player.play("right +7")
+			torso_anim_player.play("right +07")
 		elif degrees < -56.25 and degrees >= -63.75:
-			torso_anim_player.play("right +8")
+			torso_anim_player.play("right +08")
 		elif degrees < -63.75 and degrees >= -71.25:
-			torso_anim_player.play("right +9")
+			torso_anim_player.play("right +09")
 		elif degrees < -71.25 and degrees >= -78.75:
 			torso_anim_player.play("right +10")
 		elif degrees < -78.75 and degrees >= -86.25:
@@ -294,23 +294,23 @@ func _aim():
 		elif degrees < -101.25 and degrees >= -108.75:
 			torso_anim_player.play("left +10")
 		elif degrees < -108.75 and degrees >= -116.25:
-			torso_anim_player.play("left +9")
+			torso_anim_player.play("left +09")
 		elif degrees < -116.25 and degrees >= -123.75:
-			torso_anim_player.play("left +8")
+			torso_anim_player.play("left +08")
 		elif degrees < -123.75 and degrees >= -131.25:
-			torso_anim_player.play("left +7")
+			torso_anim_player.play("left +07")
 		elif degrees < -131.25 and degrees >= -138.75:
-			torso_anim_player.play("left +6")
+			torso_anim_player.play("left +06")
 		elif degrees < -138.75 and degrees >= -146.25:
-			torso_anim_player.play("left +5")
+			torso_anim_player.play("left +05")
 		elif degrees < -146.25 and degrees >= -153.75:
-			torso_anim_player.play("left +4")
+			torso_anim_player.play("left +04")
 		elif degrees < -153.75 and degrees >= -161.25:
-			torso_anim_player.play("left +3")
+			torso_anim_player.play("left +03")
 		elif degrees < -161.25 and degrees >= -168.75:
-			torso_anim_player.play("left +2")
+			torso_anim_player.play("left +02")
 		elif degrees < -168.75 and degrees >= -176.25:
-			torso_anim_player.play("left +1")
+			torso_anim_player.play("left +01")
 		
 		elif degrees < -176.25 and degrees >= -180:
 			torso_anim_player.play("left")
