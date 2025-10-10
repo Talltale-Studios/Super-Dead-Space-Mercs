@@ -38,6 +38,7 @@ GameSettings="*res://core/data/autoloads/game_settings.gd"
 Helpers="*res://core/data/autoloads/helpers.gd"
 LayerNames="*res://addons/layerNames/generated/layerNames.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+GameSetup="*res://core/data/autoloads/game_setup.gd"
 
 [display]
 
