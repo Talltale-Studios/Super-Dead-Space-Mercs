@@ -168,36 +168,6 @@ tracks/1/keys = {
 "values": [Vector2(0, -25)]
 }
 
-[sub_resource type="Animation" id="56"]
-resource_name = "stand"
-length = 0.03333667
-loop_mode = 1
-step = 0.125
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LegsSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TorsoSprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -23)]
-}
-
 [sub_resource type="Animation" id="Animation_0do0b"]
 resource_name = "run"
 length = 0.37500626
@@ -256,6 +226,36 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, -25), Vector2(0, -25), Vector2(0, -24), Vector2(0, -23), Vector2(0, -24), Vector2(0, -24), Vector2(0, -25), Vector2(0, -25), Vector2(0, -24), Vector2(0, -23), Vector2(0, -24), Vector2(0, -24)]
+}
+
+[sub_resource type="Animation" id="56"]
+resource_name = "stand"
+length = 0.03333667
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LegsSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TorsoSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -23)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gfha2"]
@@ -3976,11 +3976,10 @@ texture_filter = 1
 position = Vector2(0, -23)
 texture = ExtResource("10_0j3vm")
 hframes = 14
-frame = 3
 
 [node name="TorsoSprite" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -25)
+position = Vector2(0, -23)
 texture = ExtResource("10_yubrf")
 hframes = 10
 vframes = 5
