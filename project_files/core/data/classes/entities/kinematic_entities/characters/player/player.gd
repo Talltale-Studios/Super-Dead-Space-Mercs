@@ -181,28 +181,28 @@ func _set_fric_environment(env: String = "surface_grounded"):
 		elif coyote_timer.is_stopped() and env.contains("airborne"):
 			friction = space_airborne_friction
 
-
+@onready var bullet_scene = preload("res://core/data/common/projectiles/character_projectiles/player_projectiles/player_test_bullet.tscn")
 func _shoot():
-	var bullet = preload("res://core/data/common/projectiles/character_projectiles/player_projectiles/player_test_bullet.tscn").instantiate()
+	var bullet = bullet_scene.instantiate()
 	bullet.spawner = self
-	get_parent().add_child(bullet)
 	bullet.global_position = muzzle.global_position
 	bullet.global_rotation = muzzle.global_rotation
+	get_parent().add_child(bullet)
 
 
 func _aim():
 	var angle = torso_sprite.global_position.angle_to_point(get_global_mouse_position())
 	var degrees = rad_to_deg(angle)
-	
+
 	if torso_sprite.get_global_position().distance_to(get_global_mouse_position()) > 50:
 		muzzle.look_at(get_global_mouse_position())
 	else:
 		muzzle.rotation = angle
-	
+
 	if degrees >= 0:
 		if degrees >= 0 and degrees <= 3.75:
 			torso_anim_player.play("right")
-		
+
 		elif degrees > 3.75 and degrees <= 11.25:
 			torso_anim_player.play("right -01")
 		elif degrees > 11.25 and degrees <= 18.75:
@@ -225,12 +225,12 @@ func _aim():
 			torso_anim_player.play("right -10")
 		elif degrees > 78.75 and degrees <= 86.25:
 			torso_anim_player.play("right -11")
-		
+
 		elif degrees > 86.25 and degrees <= 90:
 			torso_anim_player.play("down right")
 		elif degrees > 90 and degrees <= 93.75:
 			torso_anim_player.play("down left")
-		
+
 		elif degrees > 93.75 and degrees <= 101.25:
 			torso_anim_player.play("left -11")
 		elif degrees > 101.25 and degrees <= 108.75:
@@ -253,14 +253,14 @@ func _aim():
 			torso_anim_player.play("left -02")
 		elif degrees > 168.75 and degrees <= 176.25:
 			torso_anim_player.play("left -01")
-		
+
 		elif degrees > 176.25 and degrees <= 180:
 			torso_anim_player.play("left")
-	
+
 	elif degrees <= 0:
 		if degrees <= 0 and degrees >= -3.75:
 			torso_anim_player.play("right")
-		
+
 		elif degrees < -3.75 and degrees >= -11.25:
 			torso_anim_player.play("right +01")
 		elif degrees < -11.25 and degrees >= -18.75:
@@ -283,12 +283,12 @@ func _aim():
 			torso_anim_player.play("right +10")
 		elif degrees < -78.75 and degrees >= -86.25:
 			torso_anim_player.play("right +11")
-		
+
 		elif degrees < -86.25 and degrees >= -90:
 			torso_anim_player.play("up right")
 		elif degrees < -90 and degrees >= -93.75:
 			torso_anim_player.play("up left")
-		
+
 		elif degrees < -93.75 and degrees >= -101.25:
 			torso_anim_player.play("left +11")
 		elif degrees < -101.25 and degrees >= -108.75:
@@ -311,6 +311,6 @@ func _aim():
 			torso_anim_player.play("left +02")
 		elif degrees < -168.75 and degrees >= -176.25:
 			torso_anim_player.play("left +01")
-		
+
 		elif degrees < -176.25 and degrees >= -180:
 			torso_anim_player.play("left")

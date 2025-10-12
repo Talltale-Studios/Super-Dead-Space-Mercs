@@ -14,7 +14,7 @@ func update(_delta: float) -> void:
 
 
 func state_handler(_delta: float) -> void:
-		# State switching
+	# State switching & jumping
 	if actor.can_jump:
 		if actor.is_on_floor() or not actor.coyote_timer.is_stopped():
 			if not actor.has_jumped:
@@ -26,6 +26,10 @@ func state_handler(_delta: float) -> void:
 				transition_to("stand")
 				return
 		else:
+			if not actor.has_jumped:
+				if actor.jumps_made < actor.max_jumps:
+					_jump()
+					actor.has_jumped = true
 			if actor.velocity.y > 0:
 				transition_to("fall")
 				return

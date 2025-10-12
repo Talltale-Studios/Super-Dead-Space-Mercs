@@ -39,7 +39,9 @@ func state_handler(_delta: float) -> void:
 			if Input.is_action_just_pressed("jump"):
 				# Coyote Jumping
 				if actor.jumps_made < actor.max_jumps and GameSettings.is_coyote_jump_enabled:
-					_jump()
+					actor.has_jumped = false
+					transition_to("jump")
+					return
 				# Jump Buffering
 				if GameSettings.is_jump_buffer_enabled:
 					if actor.jumps_made >= actor.max_jumps:
