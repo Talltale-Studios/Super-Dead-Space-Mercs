@@ -56,7 +56,7 @@ project/assembly_name="Super Dead Space Mercs"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AutoKey_SpriteFrames/plugin.cfg", "res://addons/QuickPluginManager/plugin.cfg", "res://addons/Rename/plugin.cfg", "res://addons/collapse_folders/plugin.cfg", "res://addons/diagnosticlist/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg", "res://addons/layerNames/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/snap_rotate/plugin.cfg", "res://addons/subresource_inspector/plugin.cfg", "res://addons/super_spector/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoKey_SpriteFrames/plugin.cfg", "res://addons/ExtendTimer/plugin.cfg", "res://addons/QuickPluginManager/plugin.cfg", "res://addons/Rename/plugin.cfg", "res://addons/codeburger_advanced_timer/plugin.cfg", "res://addons/collapse_folders/plugin.cfg", "res://addons/diagnosticlist/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg", "res://addons/layerNames/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/random_timers/plugin.cfg", "res://addons/snap_rotate/plugin.cfg", "res://addons/subresource_inspector/plugin.cfg", "res://addons/super_spector/plugin.cfg")
 
 [filesystem]
 
