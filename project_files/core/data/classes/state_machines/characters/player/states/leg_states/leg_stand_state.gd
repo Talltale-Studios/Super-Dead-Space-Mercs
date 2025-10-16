@@ -25,7 +25,7 @@ func state_handler(_delta: float) -> void:
 		transition_to("crouch")
 		return
 	if not actor.is_on_floor():
-		_apply_coyote_time()
+		_apply_coyote_time(0)
 		transition_to("fall")
 		return
 	activate_state()

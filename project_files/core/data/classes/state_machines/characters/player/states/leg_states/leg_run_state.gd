@@ -22,7 +22,7 @@ func state_handler(_delta: float) -> void:
 		transition_to("jump")
 		return
 	if not actor.is_on_floor():
-		_apply_coyote_time()
+		_apply_coyote_time(0)
 		transition_to("fall")
 		return
 	activate_state()
@@ -35,4 +35,4 @@ func update_physics(delta: float) -> void:
 		actor.velocity.x = lerp(actor.velocity.x, actor.speed * _get_x_input(), actor.acceleration)
 
 		# Gravity
-		#_apply_gravity(delta)
+		_apply_gravity(delta)

@@ -2,6 +2,8 @@ class_name GameKinematicPlayer
 extends GameKinematicCharacter
 
 
+#region Enums
+
 enum LEG_STATES {
 	STAND,
 	CROUCH,
@@ -23,9 +25,14 @@ enum ENVIRONMENTS {
 	SPACE,
 }
 
+#endregion
+
+
+#region Exported Properties
 
 @export var speed: int
 @export var max_jumps: int = 1
+@export var sec_coyote_time_grav_mult: float = 0.5
 
 @export_group("Environment Variables")
 @export_subgroup("Surface", "surface")
@@ -65,6 +72,11 @@ enum ENVIRONMENTS {
 @export var space_y_velocity_clamp_min: float
 @export var space_y_velocity_clamp_max: float
 
+#endregion
+
+
+#region Public Properties
+
 var leg_state: int = LEG_STATES.STAND
 var torso_state: int = TORSO_STATES.AIM
 var environment: int = ENVIRONMENTS.SURFACE
@@ -79,7 +91,7 @@ var y_velocity_clamp_min: float
 var y_velocity_clamp_max: float
 var acceleration: float
 var friction: float
-var had_coyote_time: bool = true
+var had_prim_coyote_time: bool = true
 var can_jump: bool = true
 var has_jumped: bool
 var jumps_made: int
@@ -94,6 +106,10 @@ var fall_gravity: float:
 	get:
 		return ((-2.0 * jump_height) / (jump_time_to_descend * jump_time_to_descend)) * -1.0
 
+#endregion
+
+
+#region Onready Properties
 
 @onready var torso_sprite: Sprite2D = $TorsoSprite
 @onready var legs_sprite: Sprite2D = $LegsSprite
@@ -106,9 +122,14 @@ var fall_gravity: float:
 @onready var legs_anim_tree: AnimationTree = $LegsAnimationTree
 @onready var weaponflash_anim_tree: AnimationTree = $WeaponflashAnimationTree
 @onready var jump_buffer_timer: Timer = $Timers/JumpBufferTimer
-@onready var coyote_timer: Timer = $Timers/CoyoteTimer
+@onready var prim_coyote_timer: Timer = $Timers/PrimaryCoyoteTimer
+@onready var sec_coyote_timer: Timer = $Timers/SecondaryCoyoteTimer
 @onready var camera: Camera2D = $Camera2D
 
+#endregion
+
+
+#region Private Functions
 
 func _set_gravity_environment(env: String = "surface"):
 	if env == "surface":
@@ -148,37 +169,37 @@ func _set_velocity_clamp_environment(env: String = "surface"):
 
 func _set_accel_environment(env: String = "surface_grounded"):
 	if env.begins_with("surface"):
-		if not coyote_timer.is_stopped() or env.ends_with("grounded"):
+		if not prim_coyote_timer.is_stopped() or env.ends_with("grounded"):
 			acceleration = surface_grounded_acceleration
-		elif coyote_timer.is_stopped() and env.ends_with("airborne"):
+		elif prim_coyote_timer.is_stopped() and env.ends_with("airborne"):
 			acceleration = surface_airborne_acceleration
 	if env.begins_with("underwater"):
-		if not coyote_timer.is_stopped() or env.ends_with("grounded"):
+		if not prim_coyote_timer.is_stopped() or env.ends_with("grounded"):
 			acceleration = underwater_grounded_acceleration
-		elif coyote_timer.is_stopped() and env.ends_with("airborne"):
+		elif prim_coyote_timer.is_stopped() and env.ends_with("airborne"):
 			acceleration = underwater_airborne_acceleration
 	if env.begins_with("space"):
-		if not coyote_timer.is_stopped() or env.ends_with("grounded"):
+		if not prim_coyote_timer.is_stopped() or env.ends_with("grounded"):
 			acceleration = space_grounded_acceleration
-		elif coyote_timer.is_stopped() and env.ends_with("airborne"):
+		elif prim_coyote_timer.is_stopped() and env.ends_with("airborne"):
 			acceleration = space_airborne_acceleration
 
 
 func _set_fric_environment(env: String = "surface_grounded"):
 	if env.contains("surface"):
-		if not coyote_timer.is_stopped() or env.contains("grounded"):
+		if not prim_coyote_timer.is_stopped() or env.contains("grounded"):
 			friction = surface_grounded_friction
-		elif coyote_timer.is_stopped() and env.contains("airborne"):
+		elif prim_coyote_timer.is_stopped() and env.contains("airborne"):
 			friction = surface_airborne_friction
 	if env.contains("underwater"):
-		if not coyote_timer.is_stopped() or env.contains("grounded"):
+		if not prim_coyote_timer.is_stopped() or env.contains("grounded"):
 			friction = underwater_grounded_friction
-		elif coyote_timer.is_stopped() and env.contains("airborne"):
+		elif prim_coyote_timer.is_stopped() and env.contains("airborne"):
 			friction = underwater_airborne_friction
 	if env.contains("space"):
-		if not coyote_timer.is_stopped() or env.contains("grounded"):
+		if not prim_coyote_timer.is_stopped() or env.contains("grounded"):
 			friction = space_grounded_friction
-		elif coyote_timer.is_stopped() and env.contains("airborne"):
+		elif prim_coyote_timer.is_stopped() and env.contains("airborne"):
 			friction = space_airborne_friction
 
 @onready var bullet_scene = preload("res://core/data/common/projectiles/character_projectiles/player_projectiles/player_test_bullet.tscn")
@@ -314,3 +335,5 @@ func _aim():
 
 		elif degrees < -176.25 and degrees >= -180:
 			torso_anim_player.play("left")
+
+#endregion

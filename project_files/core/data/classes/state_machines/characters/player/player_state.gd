@@ -5,7 +5,7 @@ extends GameCharacterState
 func _jump():
 	actor.velocity.y = actor.jump_velocity
 	actor.jumps_made += 1
-	actor.coyote_timer.stop()
+	actor.prim_coyote_timer.stop()
 
 
 func _ledge_hop():
@@ -19,17 +19,29 @@ func _get_gravity() -> float:
 		return actor.fall_gravity
 
 
-func _apply_coyote_time():
-	if GameSettings.is_coyote_time_enabled:
-		if actor.coyote_timer.is_stopped() and not actor.had_coyote_time and not actor.has_jumped:
-			actor.coyote_timer.start()
-			actor.velocity.y = 0
-			actor.had_coyote_time = true
+func _apply_coyote_time(type: int):
+	# Apply Primary Coyote Time
+	if type == 0:
+		if GameSettings.is_prim_coyote_time_enabled:
+			if actor.prim_coyote_timer.is_stopped() and not actor.had_prim_coyote_time and not actor.has_jumped:
+				actor.prim_coyote_timer.start()
+				actor.velocity.y = 0
+				actor.had_prim_coyote_time = true
+	# Apply Secondary Coyote Time
+	if type == 1:
+		if GameSettings.is_sec_coyote_time_enabled:
+			if actor.sec_coyote_timer.is_stopped() and not actor.had_sec_coyote_time and not actor.has_jumped:
+				actor.sec_coyote_timer.start()
+				actor.velocity.y = 0
+				actor.had_sec_coyote_time = true
 
 
 func _apply_gravity(delta):
-	if actor.coyote_timer.is_stopped():
-		actor.velocity.y += _get_gravity() * delta
+	if actor.prim_coyote_timer.is_stopped():
+		if not actor.sec_coyote_timer.is_stopped():
+			actor.velocity.y += _get_gravity() * delta * actor.sec_coyote_time_grav_mult
+		else:
+			actor.velocity.y += _get_gravity() * delta
 
 
 func _get_x_input() -> float:

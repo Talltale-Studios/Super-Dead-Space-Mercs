@@ -16,7 +16,7 @@ func update(_delta: float) -> void:
 func state_handler(_delta: float) -> void:
 	# State switching & jumping
 	if actor.can_jump:
-		if actor.is_on_floor() or not actor.coyote_timer.is_stopped():
+		if actor.is_on_floor() or not actor.prim_coyote_timer.is_stopped():
 			if not actor.has_jumped:
 					_jump()
 					actor.has_jumped = true
@@ -35,7 +35,7 @@ func state_handler(_delta: float) -> void:
 				return
 			if Input.is_action_just_pressed("jump"):
 					# Coyote Jumping
-					if actor.jumps_made < actor.max_jumps and GameSettings.is_coyote_jump_enabled:
+					if actor.jumps_made < actor.max_jumps and GameSettings.is_prim_coyote_jump_enabled:
 						_jump()
 	else:
 		if actor.velocity.y > 0:

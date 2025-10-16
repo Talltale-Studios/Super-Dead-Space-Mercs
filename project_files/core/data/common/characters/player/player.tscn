@@ -4033,8 +4033,12 @@ anim_player = NodePath("../WeaponflashAnimationPlayer")
 wait_time = 0.1
 one_shot = true
 
-[node name="CoyoteTimer" type="Timer" parent="Timers"]
-wait_time = 0.1
+[node name="PrimaryCoyoteTimer" type="Timer" parent="Timers"]
+wait_time = 0.09
+one_shot = true
+
+[node name="SecondaryCoyoteTimer" type="Timer" parent="Timers"]
+wait_time = 0.06
 one_shot = true
 
 [node name="ETimer" type="Node" parent="Timers"]
@@ -4050,6 +4054,7 @@ script = ExtResource("9_epoc7")
 metadata/_custom_type_script = "uid://bwqsda5jwqs08"
 
 [node name="AdvancedTimer" type="Timer" parent="Timers"]
+autostart = true
 script = ExtResource("8_bhfwn")
 metadata/_custom_type_script = "uid://bsvqmmvmwp8ro"
 
