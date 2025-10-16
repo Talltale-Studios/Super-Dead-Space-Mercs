@@ -1,8 +1,14 @@
 extends GameKinematicPlayer
 
 
+#region Public Properties
+
 var legs_statemachine: AnimationNodeStateMachinePlayback
 
+#endregion
+
+
+#region Private Functions
 
 func _physics_process(_delta):
 	legs_statemachine = legs_anim_tree["parameters/playback"]
@@ -54,3 +60,5 @@ func _input(event):
 
 func _on_jump_buffer_timer_timeout():
 	is_jump_buffered = false
+
+#endregion
