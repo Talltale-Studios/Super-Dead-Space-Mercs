@@ -19,36 +19,12 @@ extends Timer
 # * Setup the rest of the randomization stuff.
 #
 # NOTES & IDEAS:
-# * The built-in Timer already uses delta time, and through process_callback you
-#	can already switch between using Process and Physics_Process for updating
-#	the timer's time_left variable. As such, I can't think of any other custom
-#	processing method that we can implement that isn't already possible through
-#	the built-in Timer's. IMO we should just advise that process_callback should
-#	be set to Physics if the user wants to set wait_time to a value lower than 0.5.
-#	EDIT: Maybe there is a better way to process callbacks! The FrameTimer addon
-#		by Nukiloco (https://github.com/Nukiloco/frame_timer) uses the operating
-#		system's tickrate to calculate how much time is lost between frames and
-#		uses that to adjust the timer's time_left variable to a more accurate
-#		value! Theoretically, at least... if I understood it right.
-#		I'm not sure how that compares to Process and Physics_Process though...
-#		The addon also has a "ratio" variable, which we could also assimilate
-#		into our addon as an additional QoL feature.
-#		One thing that should be noted though is that the addon is for Godot
-#		version 3.5, so we might have to make some adjustments to the code (for
-#		example, the stuff that the other addon uses for the new processing method
-#		has since then been moved over to the Time class, but the addon still
-#		assumes that the stuff is in the OS class as it used to be back then).
-
 # * Maybe we could add a "counter" mode to our timer that counts up instead of
 #	down. Perhaps this new mode could even run at the same time as the usual
 #	cowntdown, and it would have separate variables and signals more fitting
 #	to its purpose. Examples:
 #		* CountUpTimer by DeeJeez: https://godotengine.org/asset-library/asset/4333
 #		* CounterTimer Node by BigDC: https://godotengine.org/asset-library/asset/1333
-
-# * Note: When the timer is stopped, time_left is 0.0. When the timer is_paused(),
-#	time_left remains what it was before (if it was at 0.05 when it got paused,
-#	it will remain at 0.05 until unpaused, unless the time_left is changed manually).
 
 
 #region Custom Signals
@@ -61,10 +37,16 @@ signal timer_started
 
 #region Exported Public Properties
 
+## If [code]true[/code], use stuff from the FrameTimer addon to help improve the precision of process callbacks. This is so confusing...[br][br]
+## References: [br]
+##	* https://godotengine.org/asset-library/asset/1483[br]
+##	* https://github.com/godotengine/godot-proposals/issues/3386
+##	* https://www.reddit.com/r/godot/comments/1adw26w/how_do_i_make_an_accurate_timer_in_godot_4/
+@export var high_precision_callbacks: bool = false
 ## If [code]true[/code], the timer's [member Timer.wait_time] will be clamped to a minimum value greater than [code]0[/code], as determined by [member clamp_min_threshold].
 @export var clamp_wait_time: bool = true
 ## Specifies the minimum value that [member Timer.wait_time] will be clamped to if [member clamp_wait_time] is [code]true[/code].[br][br]
-## [b]Note:[/b] If this variable has a value lower than [code]0.05[/code], it is recommended to set [member Timer.process_callback] to [code]Idle[/code] to avoid inconsistencies caused by the fluctuating framerate. See [member Timer.wait_time].
+## [b]Note:[/b] If this variable has a value lower than [code]0.05[/code], it is recommended to set [member Timer.high_precision_callbacks] to [code]true[/code]. See [member Timer.wait_time].
 @export_custom(PROPERTY_HINT_RANGE, "0.001, 4096.0, 0.001,or_greater, exp, suffix:s") var clamp_min_threshold: float = 0.05
 ## Specifies the maximum value that [member Timer.wait_time] will be clamped to if [member clamp_wait_time] is [code]true[/code].[br][br]
 @export_custom(PROPERTY_HINT_RANGE, "0.001, 4096.0, 0.001, or_greater, exp, suffix:s") var clamp_max_threshold: float = 4096.0
@@ -94,7 +76,7 @@ signal timer_started
 ## If set to [code]Weighted[/code], the randomization will select a random number in a weighted array, wherein each number has a pre-determined probability weight. The [method RandomNumberGenerator.rand_weighted] method will be used, as well as the [member rng_weighted_array] variable.
 @export_enum("Simple", "Gaussian", "Weighted") var rng_method = 0
 ## The minimum [member Timer.wait_time] to be used if [member rng_method] is set to [code]Simple[/code].[br][br]
-## [b]Note:[/b] If this variable has a value lower than [code]0.05[/code], it is recommended to set [member Timer.process_callback] to [code]Idle[/code] to avoid inconsistencies caused by the fluctuating framerate. See [member Timer.wait_time].
+## [b]Note:[/b] If this variable has a value lower than [code]0.05[/code], it is recommended to set [member Timer.high_precision_callbacks] to [code]true[/code]. See [member Timer.wait_time].
 @export_range(0.001, 4096.0, 0.001, "or_greater", "exp", "suffix:s") var simple_rng_min: float = 1.0
 ## The maximum [member Timer.wait_time] to be used if [member rng_method] is set to [code]Simple[/code].
 @export_range(0.05, 4096.0, 0.001, "or_greater", "exp", "suffix:s") var simple_rng_max: float = 2.0
@@ -114,13 +96,8 @@ signal timer_started
 
 ## The [RandomNumberGenerator] that is used for the timer's randomization functionality.
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
-
-#endregion
-
-
-#region Private Properties
-
-var _started_timer: bool = false
+## If [code]true[/code], the timer is running. Is automatically set to [code]true[/code] when [member Timer.time_left] is greater than [code]0.0[/code], and is set to [code]false[/code] on [signal Timer.timeout]. Will remain [code]true[/code] even while the timer is [member Timer.paused].
+var is_running: bool = false
 
 #endregion
 
@@ -128,16 +105,16 @@ var _started_timer: bool = false
 #region Private Functions
 
 func _ready() -> void:
+	# Connect signals to script.
 	timer_started.connect(_on_timer_started)
 	timeout.connect(_on_timeout)
 
-	if use_custom_seed:
-		rng.set_seed(custom_seed)
-	else:
-		rng.randomize()
-
+	# Handle initial randomization, if the feature is enabled.
 	if enable_randomization:
+		if use_custom_seed:
+			rng.set_seed(custom_seed)
 		if is_initially_randomized:
+			rng.randomize()
 			if rng_method == 0:
 				wait_time = rng.randf_range(simple_rng_min, simple_rng_max)
 			if rng_method == 1:
@@ -151,19 +128,20 @@ func _physics_process(delta: float) -> void:
 	if clamp_wait_time:
 		clampf(wait_time, clamp_min_threshold, clamp_max_threshold)
 	
-	if time_left > 0 and not _started_timer:
+	if time_left > 0 and not is_running:
 		print("[", Time.get_time_string_from_system(), "] time_left > 0")
 		emit_signal("timer_started")
-		_started_timer = true
+		is_running = true
 
 #region Signal Functions
+
 func _on_timer_started() -> void:
 	print("[", Time.get_time_string_from_system(), "] Signal Emitted: timer_started()")
 
 
 func _on_timeout() -> void:
 	print("[", Time.get_time_string_from_system(), "] Signal Emitted: timeout()")
-	_started_timer = false
+	is_running = false
 	
 	if self_destruct:
 		queue_free()

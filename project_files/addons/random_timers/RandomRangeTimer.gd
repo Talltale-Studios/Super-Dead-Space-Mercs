@@ -14,7 +14,7 @@ func _ready() -> void:
 func _handle_initial_randomness():
 	if autostart && is_initially_random:
 		## Initial wait_time on autostart node is random within range.
-		start(_get_value_within_range()) 
+		start(_get_value_within_range())
 	elif is_initially_random:
 		 ## Makes the initial wait_time when calling start() (without parameters) for the first time, random within range.
 		wait_time = _get_value_within_range()
