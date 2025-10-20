@@ -257,7 +257,9 @@ var max_upwards_velocity: float
 var max_rightwards_velocity: float
 var max_leftwards_velocity: float
 
-var had_prim_coyote_time: bool = true
+var had_alpha_coyote_time: bool = true
+var had_beta_coyote_time: bool = true
+var had_jump_peak_float_time: bool = true
 var has_jumped: bool
 
 var is_gravity_enabled: bool = true:
@@ -307,7 +309,7 @@ var dash_cooldown_timer: Timer
 var dash_duration_timer: Timer
 var wall_climb_timer: Timer
 var suspend_gravity_timer: Timer
-var prim_coyote_timer: Timer
+var alpha_coyote_timer: Timer
 var jump_buffer_timer: Timer
 
 
@@ -323,8 +325,8 @@ func can_dash() -> bool:
 
 func can_jump() -> bool:
 	if not can_wall_slide() and not can_wall_climb():
-		if actor.is_on_floor() or (GameSettings.is_prim_coyote_jump_enabled \
-			and prim_coyote_timer.time_left > 0.0):
+		if actor.is_on_floor() or (GameSettings.is_alpha_coyote_jump_enabled \
+			and alpha_coyote_timer.time_left > 0.0):
 				return true
 		else:
 			return (velocity.y < absf(jump_velocity_threshold) \
@@ -364,7 +366,7 @@ func is_within_jumping_threshold() -> bool:
 
 
 func is_coyote_time_active() -> bool:
-	if GameSettings.is_prim_coyote_time_enabled and not prim_coyote_timer.is_stopped():
+	if GameSettings.is_alpha_coyote_time_enabled and not alpha_coyote_timer.is_stopped():
 		return true
 	else:
 		return false
@@ -389,7 +391,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _ready():
-	_create_prim_coyote_timer()
+	_create_alpha_coyote_timer()
 	_create_dash_duration_timer()
 	_create_wall_climb_timer()
 
@@ -510,7 +512,6 @@ func get_gravity() -> float:
 func apply_gravity() -> void:
 	if is_gravity_enabled:
 		var gravity_force = get_gravity() * get_physics_process_delta_time()
-
 		if is_gravity_inverted:
 			velocity.y -= gravity_force
 		else:
@@ -563,14 +564,14 @@ func invert_gravity() -> void:
 		inverted_gravity.emit(is_gravity_inverted)
 
 
-func suspend_gravity_for_duration(duration: float) -> void:
+func suspend_grav_for_duration(duration: float) -> void:
 	if duration > 0:
 		is_gravity_enabled = false
 	suspend_gravity_timer.wait_time = max(0.05, duration)
 	suspend_gravity_timer.start()
 
 
-func toggle_gravity() -> void:
+func toggle_grav() -> void:
 	is_gravity_enabled = !is_gravity_enabled
 
 
@@ -679,16 +680,16 @@ func wall_slide():
 
 
 func check_coyote_jump_time_window(was_on_floor: bool = true) -> void:
-	if GameSettings.is_prim_coyote_jump_enabled:
+	if GameSettings.is_alpha_coyote_jump_enabled:
 		var just_left_ledge = was_on_floor and not actor.is_on_floor() \
 			and (velocity.y >= 0 or (is_gravity_inverted and velocity.y <= 0))
 
 		if just_left_ledge:
-			prim_coyote_timer.start()
+			alpha_coyote_timer.start()
 
 
 func check_jump_buffer_time_window(was_on_floor: bool = true) -> void:
-	jump_buffer_timer.start()
+	pass
 
 
 func enable_dash(cooldown: float = dash_cooldown, times: int = times_can_dash):
@@ -754,18 +755,18 @@ func _create_suspend_gravity_timer() -> void:
 	suspend_gravity_timer.timeout.connect(on_suspend_gravity_timeout)
 
 
-func _create_prim_coyote_timer() -> void:
-	if prim_coyote_timer:
+func _create_alpha_coyote_timer() -> void:
+	if alpha_coyote_timer:
 		return
 
-	prim_coyote_timer = Timer.new()
-	prim_coyote_timer.name = "CoyoteTimer"
-	prim_coyote_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-	prim_coyote_timer.wait_time = coyote_jump_time_window
-	prim_coyote_timer.one_shot = true
-	prim_coyote_timer.autostart = false
+	alpha_coyote_timer = Timer.new()
+	alpha_coyote_timer.name = "CoyoteTimer"
+	alpha_coyote_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
+	alpha_coyote_timer.wait_time = coyote_jump_time_window
+	alpha_coyote_timer.one_shot = true
+	alpha_coyote_timer.autostart = false
 
-	add_child(prim_coyote_timer)
+	add_child(alpha_coyote_timer)
 
 
 func _create_jump_buffer_timer() -> void:
@@ -810,10 +811,10 @@ func on_suspend_gravity_timeout(timer: Timer) -> void:
 
 func on_coyote_time_started() -> void:
 	is_gravity_enabled = false
-	prim_coyote_timer.start()
+	alpha_coyote_timer.start()
 
 
-func on_prim_coyote_timer_timeout() -> void:
+func on_alpha_coyote_timer_timeout() -> void:
 	is_gravity_enabled = true
 
 
@@ -823,7 +824,7 @@ func on_jumped() -> void:
 	is_wall_sliding = false
 	is_dashing = false
 
-	prim_coyote_timer.stop()
+	alpha_coyote_timer.stop()
 
 
 func on_wall_jumped(normal: Vector2) -> void:
@@ -1030,39 +1031,39 @@ func _set_max_leftwards_vel_env(env: String = "surface") -> void:
 
 func _set_accel_env(env: String = "surface_grounded") -> void:
 	if env.begins_with("surface"):
-		if not prim_coyote_timer.is_stopped() or env.ends_with("grounded"):
+		if not alpha_coyote_timer.is_stopped() or env.ends_with("grounded"):
 			acceleration = surface_grounded_acceleration
-		elif prim_coyote_timer.is_stopped() and env.ends_with("airborne"):
+		elif alpha_coyote_timer.is_stopped() and env.ends_with("airborne"):
 			acceleration = surface_airborne_acceleration
 
 	if env.begins_with("underwater"):
-		if not prim_coyote_timer.is_stopped() or env.ends_with("grounded"):
+		if not alpha_coyote_timer.is_stopped() or env.ends_with("grounded"):
 			acceleration = underwater_grounded_acceleration
-		elif prim_coyote_timer.is_stopped() and env.ends_with("airborne"):
+		elif alpha_coyote_timer.is_stopped() and env.ends_with("airborne"):
 			acceleration = underwater_airborne_acceleration
 
 	if env.begins_with("space"):
-		if not prim_coyote_timer.is_stopped() or env.ends_with("grounded"):
+		if not alpha_coyote_timer.is_stopped() or env.ends_with("grounded"):
 			acceleration = space_grounded_acceleration
-		elif prim_coyote_timer.is_stopped() and env.ends_with("airborne"):
+		elif alpha_coyote_timer.is_stopped() and env.ends_with("airborne"):
 			acceleration = space_airborne_acceleration
 
 
 func _set_fric_env(env: String = "surface_grounded") -> void:
 	if env.contains("surface"):
-		if not prim_coyote_timer.is_stopped() or env.contains("grounded"):
+		if not alpha_coyote_timer.is_stopped() or env.contains("grounded"):
 			friction = surface_grounded_friction
-		elif prim_coyote_timer.is_stopped() and env.contains("airborne"):
+		elif alpha_coyote_timer.is_stopped() and env.contains("airborne"):
 			friction = surface_airborne_friction
 
 	if env.contains("underwater"):
-		if not prim_coyote_timer.is_stopped() or env.contains("grounded"):
+		if not alpha_coyote_timer.is_stopped() or env.contains("grounded"):
 			friction = underwater_grounded_friction
-		elif prim_coyote_timer.is_stopped() and env.contains("airborne"):
+		elif alpha_coyote_timer.is_stopped() and env.contains("airborne"):
 			friction = underwater_airborne_friction
 
 	if env.contains("space"):
-		if not prim_coyote_timer.is_stopped() or env.contains("grounded"):
+		if not alpha_coyote_timer.is_stopped() or env.contains("grounded"):
 			friction = space_grounded_friction
-		elif prim_coyote_timer.is_stopped() and env.contains("airborne"):
+		elif alpha_coyote_timer.is_stopped() and env.contains("airborne"):
 			friction = space_airborne_friction

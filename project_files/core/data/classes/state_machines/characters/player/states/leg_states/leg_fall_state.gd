@@ -10,7 +10,7 @@ func update(_delta: float) -> void:
 			actor.legs_sprite.flip_h = true
 
 		# State animation
-			if actor.prim_coyote_timer.is_stopped() and actor.sec_coyote_timer.is_stopped():
+			if actor.alpha_coyote_timer.is_stopped() and actor.beta_coyote_timer.is_stopped():
 				actor.legs_statemachine.travel("fall")
 
 
@@ -18,7 +18,8 @@ func state_handler(_delta: float) -> void:
 	# Jumping and state switching
 	if actor.can_jump:
 		if actor.is_on_floor():
-			actor.had_prim_coyote_time = false
+			actor.movement_component.had_jump_peak_float_time = false
+			actor.had_alpha_coyote_time = false
 			actor.has_jumped = false
 			actor.jumps_made = 0
 			# Transition to the 'jump' state if a jump is buffered and if enabled
@@ -26,7 +27,7 @@ func state_handler(_delta: float) -> void:
 				actor.is_jump_buffered = false
 				if GameSettings.is_jump_buffer_enabled:
 					transition_to("jump")
-				return
+					return
 			# Else, transition to the 'stand' state
 			else:
 				transition_to("stand")
@@ -38,7 +39,7 @@ func state_handler(_delta: float) -> void:
 				actor.legs_statemachine.travel("stand")
 			if Input.is_action_just_pressed("jump"):
 				# Coyote Jumping
-				if actor.jumps_made < actor.max_jumps and GameSettings.is_prim_coyote_jump_enabled:
+				if actor.jumps_made < actor.max_jumps and GameSettings.is_alpha_coyote_jump_enabled:
 					actor.has_jumped = false
 					transition_to("jump")
 					return

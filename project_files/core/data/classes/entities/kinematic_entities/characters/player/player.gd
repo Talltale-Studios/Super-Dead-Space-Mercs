@@ -32,7 +32,9 @@ enum ENVIRONMENTS {
 
 @export var speed: int
 @export var max_jumps: int = 1
-@export var sec_coyote_time_grav_mult: float = 0.5
+@export var alpha_coyote_time_grav_mult: float = 1.0
+@export var beta_coyote_time_grav_mult: float = 0.5
+@export var jump_peak_float_time_grav_mult: float = 0.0
 
 @export_group("Environment Variables")
 @export_subgroup("Surface", "surface")
@@ -91,7 +93,8 @@ var y_velocity_clamp_min: float
 var y_velocity_clamp_max: float
 var acceleration: float
 var friction: float
-var had_prim_coyote_time: bool = true
+var had_alpha_coyote_time: bool = true
+var had_beta_coyote_time: bool = true
 var can_jump: bool = true
 var has_jumped: bool
 var jumps_made: int
@@ -121,17 +124,20 @@ var fall_gravity: float:
 @onready var weaponflash_anim_player: AnimationPlayer = $WeaponflashAnimationPlayer
 @onready var legs_anim_tree: AnimationTree = $LegsAnimationTree
 @onready var weaponflash_anim_tree: AnimationTree = $WeaponflashAnimationTree
+@onready var alpha_coyote_timer: Timer = $Timers/AlphaCoyoteTimer
+@onready var beta_coyote_timer: Timer = $Timers/BetaCoyoteTimer
 @onready var jump_buffer_timer: Timer = $Timers/JumpBufferTimer
-@onready var prim_coyote_timer: Timer = $Timers/PrimaryCoyoteTimer
-@onready var sec_coyote_timer: Timer = $Timers/SecondaryCoyoteTimer
+@onready var jump_peak_float_timer: Timer = $Timers/JumpPeakFloatTimer
 @onready var camera: Camera2D = $Camera2D
+
+@onready var bullet_scene = preload("res://core/data/common/projectiles/character_projectiles/player_projectiles/player_test_bullet.tscn")
 
 #endregion
 
 
 #region Private Functions
 
-func _set_gravity_environment(env: String = "surface"):
+func _set_gravity_env(env: String = "surface"):
 	if env == "surface":
 		jump_height = surface_jump_height
 		jump_time_to_peak = surface_jump_time_to_peak
@@ -146,7 +152,7 @@ func _set_gravity_environment(env: String = "surface"):
 		jump_time_to_descend = space_jump_time_to_descend
 
 
-func _set_jump_vel_cut_environment(env: String = "surface_grounded"):
+func _set_jump_vel_cut_env(env: String = "surface_grounded"):
 	if env == "surface":
 		jump_release_velocity_cut = surface_jump_release_velocity_cut
 	if env == "underwater":
@@ -155,7 +161,7 @@ func _set_jump_vel_cut_environment(env: String = "surface_grounded"):
 		jump_release_velocity_cut = space_jump_release_velocity_cut
 
 
-func _set_velocity_clamp_environment(env: String = "surface"):
+func _set_velocity_clamp_env(env: String = "surface"):
 	if env == "surface":
 		y_velocity_clamp_min = surface_y_velocity_clamp_min
 		y_velocity_clamp_max = surface_y_velocity_clamp_max
@@ -167,42 +173,42 @@ func _set_velocity_clamp_environment(env: String = "surface"):
 		y_velocity_clamp_max = space_y_velocity_clamp_max
 
 
-func _set_accel_environment(env: String = "surface_grounded"):
+func _set_accel_env(env: String = "surface_grounded"):
 	if env.begins_with("surface"):
-		if not prim_coyote_timer.is_stopped() or env.ends_with("grounded"):
+		if not alpha_coyote_timer.is_stopped() or env.ends_with("grounded"):
 			acceleration = surface_grounded_acceleration
-		elif prim_coyote_timer.is_stopped() and env.ends_with("airborne"):
+		elif alpha_coyote_timer.is_stopped() and env.ends_with("airborne"):
 			acceleration = surface_airborne_acceleration
 	if env.begins_with("underwater"):
-		if not prim_coyote_timer.is_stopped() or env.ends_with("grounded"):
+		if not alpha_coyote_timer.is_stopped() or env.ends_with("grounded"):
 			acceleration = underwater_grounded_acceleration
-		elif prim_coyote_timer.is_stopped() and env.ends_with("airborne"):
+		elif alpha_coyote_timer.is_stopped() and env.ends_with("airborne"):
 			acceleration = underwater_airborne_acceleration
 	if env.begins_with("space"):
-		if not prim_coyote_timer.is_stopped() or env.ends_with("grounded"):
+		if not alpha_coyote_timer.is_stopped() or env.ends_with("grounded"):
 			acceleration = space_grounded_acceleration
-		elif prim_coyote_timer.is_stopped() and env.ends_with("airborne"):
+		elif alpha_coyote_timer.is_stopped() and env.ends_with("airborne"):
 			acceleration = space_airborne_acceleration
 
 
-func _set_fric_environment(env: String = "surface_grounded"):
+func _set_fric_env(env: String = "surface_grounded"):
 	if env.contains("surface"):
-		if not prim_coyote_timer.is_stopped() or env.contains("grounded"):
+		if not alpha_coyote_timer.is_stopped() or env.contains("grounded"):
 			friction = surface_grounded_friction
-		elif prim_coyote_timer.is_stopped() and env.contains("airborne"):
+		elif alpha_coyote_timer.is_stopped() and env.contains("airborne"):
 			friction = surface_airborne_friction
 	if env.contains("underwater"):
-		if not prim_coyote_timer.is_stopped() or env.contains("grounded"):
+		if not alpha_coyote_timer.is_stopped() or env.contains("grounded"):
 			friction = underwater_grounded_friction
-		elif prim_coyote_timer.is_stopped() and env.contains("airborne"):
+		elif alpha_coyote_timer.is_stopped() and env.contains("airborne"):
 			friction = underwater_airborne_friction
 	if env.contains("space"):
-		if not prim_coyote_timer.is_stopped() or env.contains("grounded"):
+		if not alpha_coyote_timer.is_stopped() or env.contains("grounded"):
 			friction = space_grounded_friction
-		elif prim_coyote_timer.is_stopped() and env.contains("airborne"):
+		elif alpha_coyote_timer.is_stopped() and env.contains("airborne"):
 			friction = space_airborne_friction
 
-@onready var bullet_scene = preload("res://core/data/common/projectiles/character_projectiles/player_projectiles/player_test_bullet.tscn")
+
 func _shoot():
 	var bullet = bullet_scene.instantiate()
 	bullet.spawner = self

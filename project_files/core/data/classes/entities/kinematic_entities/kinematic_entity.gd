@@ -4,4 +4,4 @@ class_name GameKinematicEntity
 extends CharacterBody2D
 
 
-@export_node_path("GameMovementComponent") var movement_component
+@export var movement_component: GameMovementComponent

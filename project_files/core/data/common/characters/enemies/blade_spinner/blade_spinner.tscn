@@ -120,7 +120,7 @@ _data = {
 &"temp": SubResource("Animation_0pibx")
 }
 
-[node name="BladeSpinner" type="CharacterBody2D"]
+[node name="BladeSpinner" type="CharacterBody2D" node_paths=PackedStringArray("movement_component")]
 collision_layer = 1024
 collision_mask = 3
 script = ExtResource("1_oyakm")

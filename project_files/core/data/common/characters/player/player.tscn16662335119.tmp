@@ -1,4 +1,4 @@
-[gd_scene load_steps=164 format=3 uid="uid://y4rbi5ibv6li"]
+[gd_scene load_steps=166 format=3 uid="uid://y4rbi5ibv6li"]
 
 [ext_resource type="Script" uid="uid://5cv684qmh7ts" path="res://core/data/common/characters/player/player_controller.gd" id="1_vgxc6"]
 [ext_resource type="PackedScene" uid="uid://dub8sg7st4ep4" path="res://core/data/common/characters/player/player_state_machine.tscn" id="2_rjf7r"]
@@ -346,6 +346,36 @@ states/stand/node = SubResource("63")
 states/stand/position = Vector2(167.267, 37)
 transitions = ["stand", "run", SubResource("64"), "run", "stand", SubResource("65"), "stand", "jump", SubResource("68"), "run", "jump", SubResource("69"), "jump", "stand", SubResource("70"), "stand", "crouch", SubResource("71"), "crouch", "stand", SubResource("72"), "run", "crouch", SubResource("73"), "run", "fall", SubResource("75"), "jump", "fall", SubResource("76"), "crouch", "fall", SubResource("77"), "stand", "fall", SubResource("78"), "fall", "stand", SubResource("79"), "fall", "jump", SubResource("80"), "Start", "stand", SubResource("AnimationNodeStateMachineTransition_oupdm")]
 graph_offset = Vector2(-172.96777, -39.837357)
+
+[sub_resource type="Animation" id="Animation_mwyeb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TorsoSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TorsoSprite/Muzzle:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, 0)]
+}
+
+[sub_resource type="Animation" id="57"]
+resource_name = "climb"
 
 [sub_resource type="Animation" id="49"]
 resource_name = "down left"
@@ -2249,6 +2279,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8bj2c"]
 _data = {
+&"RESET": SubResource("Animation_mwyeb"),
+&"climb": SubResource("57"),
 &"down left": SubResource("49"),
 &"down right": SubResource("47"),
 &"left": SubResource("1"),
@@ -3884,7 +3916,7 @@ graph_offset = Vector2(-95, 0)
 [sub_resource type="Resource" id="Resource_0do0b"]
 script = ExtResource("8_7l7rj")
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_component")]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 2048
 collision_mask = 3
 floor_constant_speed = true
@@ -3956,10 +3988,9 @@ position = Vector2(0, -23)
 texture = ExtResource("10_yubrf")
 hframes = 10
 vframes = 5
-frame = 25
 
 [node name="Muzzle" type="Marker2D" parent="TorsoSprite"]
-position = Vector2(-14, 1)
+position = Vector2(14, 0)
 
 [node name="WeaponflashSprite" type="Sprite2D" parent="TorsoSprite"]
 visible = false
@@ -4003,16 +4034,16 @@ anim_player = NodePath("../WeaponflashAnimationPlayer")
 wait_time = 0.2
 one_shot = true
 
-[node name="AlphaCoyoteTimer" type="Timer" parent="Timers"]
+[node name="PrimaryCoyoteTimer" type="Timer" parent="Timers"]
 wait_time = 0.09
 one_shot = true
 
-[node name="BetaCoyoteTimer" type="Timer" parent="Timers"]
+[node name="SecondaryCoyoteTimer" type="Timer" parent="Timers"]
 wait_time = 0.06
 one_shot = true
 
 [node name="JumpPeakFloatTimer" type="Timer" parent="Timers"]
-wait_time = 0.15
+wait_time = 0.85
 one_shot = true
 
 [node name="ETimer" type="Node" parent="Timers"]
@@ -4050,4 +4081,3 @@ script = ExtResource("9_7l7rj")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
-[connection signal="timeout" from="Timers/JumpPeakFloatTimer" to="." method="_on_jump_peak_float_timer_timeout"]

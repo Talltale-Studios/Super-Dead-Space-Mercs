@@ -20,35 +20,35 @@ func _physics_process(_delta):
 
 	match environment:
 		ENVIRONMENTS.SURFACE:
-			_set_gravity_environment("surface")
-			_set_jump_vel_cut_environment("surface")
-			_set_velocity_clamp_environment("surface")
+			_set_gravity_env("surface")
+			_set_jump_vel_cut_env("surface")
+			_set_velocity_clamp_env("surface")
 			if is_on_floor():
-				_set_accel_environment("surface_grounded")
-				_set_fric_environment("surface_grounded")
+				_set_accel_env("surface_grounded")
+				_set_fric_env("surface_grounded")
 			else:
-				_set_accel_environment("surface_airborne")
-				_set_fric_environment("surface_airborne")
+				_set_accel_env("surface_airborne")
+				_set_fric_env("surface_airborne")
 		ENVIRONMENTS.UNDERWATER:
-			_set_gravity_environment("underwater")
-			_set_jump_vel_cut_environment("underwater")
-			_set_velocity_clamp_environment("underwater")
+			_set_gravity_env("underwater")
+			_set_jump_vel_cut_env("underwater")
+			_set_velocity_clamp_env("underwater")
 			if is_on_floor():
-				_set_accel_environment("underwater_grounded")
-				_set_fric_environment("underwater_grounded")
+				_set_accel_env("underwater_grounded")
+				_set_fric_env("underwater_grounded")
 			else:
-				_set_accel_environment("underwater_airborne")
-				_set_fric_environment("underwater_airborne")
+				_set_accel_env("underwater_airborne")
+				_set_fric_env("underwater_airborne")
 		ENVIRONMENTS.SPACE:
-			_set_gravity_environment("space")
-			_set_jump_vel_cut_environment("space")
-			_set_velocity_clamp_environment("space")
+			_set_gravity_env("space")
+			_set_jump_vel_cut_env("space")
+			_set_velocity_clamp_env("space")
 			if is_on_floor():
-				_set_accel_environment("space_grounded")
-				_set_fric_environment("space_grounded")
+				_set_accel_env("space_grounded")
+				_set_fric_env("space_grounded")
 			else:
-				_set_accel_environment("space_airborne")
-				_set_fric_environment("space_airborne")
+				_set_accel_env("space_airborne")
+				_set_fric_env("space_airborne")
 
 	move_and_slide()
 
@@ -58,7 +58,11 @@ func _input(event):
 		velocity.y *= jump_release_velocity_cut
 
 
-func _on_jump_buffer_timer_timeout():
+func _on_jump_buffer_timer_timeout() -> void:
 	is_jump_buffered = false
+
+
+func _on_jump_peak_float_timer_timeout() -> void:
+	pass
 
 #endregion

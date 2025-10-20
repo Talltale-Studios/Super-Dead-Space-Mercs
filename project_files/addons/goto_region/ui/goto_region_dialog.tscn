@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://drcwyjc7ul2na"]
 
-[ext_resource type="Script" path="res://addons/goto_region/ui/goto_region_dialog.gd" id="1_8x0xt"]
+[ext_resource type="Script" uid="uid://c2ar2g1kanfq7" path="res://addons/goto_region/ui/goto_region_dialog.gd" id="1_8x0xt"]
 
 [node name="FilterRegionWindow" type="ConfirmationDialog"]
 title = "Go to region"
