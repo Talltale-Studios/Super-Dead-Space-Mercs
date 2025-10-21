@@ -124,10 +124,10 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	print("[", Time.get_time_string_from_system(), "] time_left = ", time_left)
-	
+
 	if clamp_wait_time:
 		clampf(wait_time, clamp_min_threshold, clamp_max_threshold)
-	
+
 	if time_left > 0 and not is_running:
 		print("[", Time.get_time_string_from_system(), "] time_left > 0")
 		emit_signal("timer_started")
@@ -142,7 +142,7 @@ func _on_timer_started() -> void:
 func _on_timeout() -> void:
 	print("[", Time.get_time_string_from_system(), "] Signal Emitted: timeout()")
 	is_running = false
-	
+
 	if self_destruct:
 		queue_free()
 
