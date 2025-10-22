@@ -47,16 +47,16 @@ func _apply_jump_peak_float_time():
 func _apply_gravity(delta):
 	if actor.jump_peak_float_timer.is_stopped():
 		if actor.alpha_coyote_timer.is_stopped() and actor.beta_coyote_timer.is_stopped():
-			actor.velocity.y += _get_gravity()
+			actor.velocity.y += _get_gravity() * delta
 		elif not actor.alpha_coyote_timer.is_stopped() and actor.beta_coyote_timer.is_stopped():
-			actor.velocity.y += _get_gravity() * actor.alpha_coyote_time_grav_mult
+			actor.velocity.y += _get_gravity() * delta * actor.alpha_coyote_time_grav_mult
 		elif actor.alpha_coyote_timer.is_stopped() and not actor.beta_coyote_timer.is_stopped():
-			actor.velocity.y += _get_gravity() * actor.beta_coyote_time_grav_mult
+			actor.velocity.y += _get_gravity() * delta * actor.beta_coyote_time_grav_mult
 		else:
 			# Uh... I don't know if this is what we want to do but at least he logic for it is here now...
-			actor.velocity.y += _get_gravity() * actor.alpha_coyote_time_grav_mult * actor.beta_coyote_time_grav_mult
+			actor.velocity.y += _get_gravity() * delta * actor.alpha_coyote_time_grav_mult * actor.beta_coyote_time_grav_mult
 	else:
-		actor.velocity.y += _get_gravity() * actor.jump_peak_float_time_grav_mult
+		actor.velocity.y += _get_gravity() * delta * actor.jump_peak_float_time_grav_mult
 
 
 func _get_x_input() -> float:

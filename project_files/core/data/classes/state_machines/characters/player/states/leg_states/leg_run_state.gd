@@ -32,7 +32,8 @@ func update_physics(delta: float) -> void:
 	if active:
 		# Movement
 		actor.snap_vector = Vector2.DOWN
-		actor.velocity.x = lerp(actor.velocity.x, actor.speed * _get_x_input(), actor.acceleration)
+		#actor.velocity.x = lerp(actor.velocity.x, actor.speed * _get_x_input(), actor.acceleration)
+		actor.velocity.x = move_toward(actor.velocity.x, actor.speed * _get_x_input(), actor.acceleration * delta)
 
 		# Gravity
 		_apply_gravity(delta)

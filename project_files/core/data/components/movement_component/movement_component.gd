@@ -91,10 +91,6 @@ enum ENVIRONMENTS {
 ## Time that the climb action is disabled when the fatigue timeout is triggered.
 @export var wall_climb_fatigue_cooldown: float = 0.7
 
-@export_group("Knockback")
-## The power of the knockpack.
-@export var knockback_power: int = 250
-
 @export_group("Gravity")
 ## The duration for which gravity will be suspended.
 @export var suspend_gravity_duration: float = 1.0
@@ -245,6 +241,9 @@ var jump_time_to_drop: float:
 		fall_gravity = calculate_fall_gravity(jump_height, jump_time_to_drop)
 	get:
 		return jump_time_to_drop
+
+## The power of the knockpack.
+var knockback_power: int = 250
 
 ## Reduced amount of jump effectiveness at each iteration.
 var multijump_height_reduction: float
@@ -462,7 +461,7 @@ func decelerate() -> void:
 		velocity = Vector2.ZERO
 
 
-func knockback(direction: Vector2, power: int = knockback_power) -> void:
+func apply_knockback(target: Node2D, direction: Vector2, power: int = knockback_power) -> void:
 	var knockback_direction: Vector2 = (direction if direction.is_normalized() else direction.normalized()) * max(1, power)
 	velocity = knockback_direction
 	move()
@@ -796,7 +795,7 @@ func on_wall_climb_timer_timeout() -> void:
 	GameSettings.is_wall_climb_enabled = false
 	wall_climb_finished.emit()
 
-	knockback(actor.get_wall_normal(), wall_climb_fatigue_knockback)
+	apply_knockback(actor, actor.get_wall_normal(), wall_climb_fatigue_knockback)
 
 	if wall_climb_fatigue_cooldown > 0:
 		await (get_tree().create_timer(wall_climb_fatigue_cooldown)).timeout

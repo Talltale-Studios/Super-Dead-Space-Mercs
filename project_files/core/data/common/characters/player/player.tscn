@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://5cv684qmh7ts" path="res://core/data/common/characters/player/player_controller.gd" id="1_vgxc6"]
 [ext_resource type="PackedScene" uid="uid://dub8sg7st4ep4" path="res://core/data/common/characters/player/player_state_machine.tscn" id="2_rjf7r"]
+[ext_resource type="PackedScene" uid="uid://c65j8vrwnr84k" path="res://core/data/common/characters/player/player_movement_component.tscn" id="3_5tbo0"]
 [ext_resource type="Texture2D" uid="uid://yxqax504wlt4" path="res://core/assets/textures/characters/player/weapon_flash/weaponflash.tres" id="4_y15yd"]
 [ext_resource type="Script" uid="uid://c7057qqve2fn6" path="res://addons/ExtendTimer/etimer.gd" id="7_0do0b"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="7_ogiaa"]
 [ext_resource type="Script" uid="uid://b83vb6q26rlk7" path="res://addons/random_timers/RandomListTimer.gd" id="8_5tbo0"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_7l7rj"]
 [ext_resource type="Script" uid="uid://bsvqmmvmwp8ro" path="res://addons/codeburger_advanced_timer/advanced_timer.gd" id="8_bhfwn"]
-[ext_resource type="Script" uid="uid://3mnr7dma4ql" path="res://core/data/components/movement_component/player_movement_component.gd" id="9_0t0xf"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="9_7l7rj"]
 [ext_resource type="Script" uid="uid://bwqsda5jwqs08" path="res://addons/random_timers/RandomRangeTimer.gd" id="9_epoc7"]
 [ext_resource type="Texture2D" uid="uid://c5yihkdl8wki6" path="res://core/assets/textures/characters/player/legs/player_legs_01.tres" id="10_0j3vm"]
@@ -3912,7 +3912,7 @@ space_jump_height = 108.0
 space_jump_time_to_peak = 0.5
 space_grounded_acceleration = 0.1
 space_grounded_friction = 0.1
-movement_component = NodePath("GamePlayerMovementComponent")
+movement_component = NodePath("PlayerMovementComponent")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(6, -29, -6, -29, -6, 0, 6, 0)
@@ -3924,9 +3924,7 @@ shape = SubResource("CircleShape2D_0j3vm")
 [node name="PlayerStateMachine" parent="." node_paths=PackedStringArray("actor") instance=ExtResource("2_rjf7r")]
 actor = NodePath("..")
 
-[node name="GamePlayerMovementComponent" type="Node2D" parent="."]
-script = ExtResource("9_0t0xf")
-actor = NodePath("..")
+[node name="PlayerMovementComponent" parent="." instance=ExtResource("3_5tbo0")]
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2048
