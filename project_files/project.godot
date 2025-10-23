@@ -39,6 +39,7 @@ Helpers="*res://core/data/autoloads/helpers.gd"
 LayerNames="*res://addons/layerNames/generated/layerNames.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 GameSetup="*res://core/data/autoloads/game_setup.gd"
+BetterPrint="*res://addons/better_print/better_print.gd"
 
 [display]
 
@@ -55,7 +56,7 @@ project/assembly_name="Super Dead Space Mercs"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AutoKey_SpriteFrames/plugin.cfg", "res://addons/ExtendTimer/plugin.cfg", "res://addons/QuickPluginManager/plugin.cfg", "res://addons/Rename/plugin.cfg", "res://addons/codeburger_advanced_timer/plugin.cfg", "res://addons/collapse_folders/plugin.cfg", "res://addons/diagnosticlist/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg", "res://addons/layerNames/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/random_timers/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/script_splitter/plugin.cfg", "res://addons/snap_rotate/plugin.cfg", "res://addons/subresource_inspector/plugin.cfg", "res://addons/super_spector/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoKey_SpriteFrames/plugin.cfg", "res://addons/ExtendTimer/plugin.cfg", "res://addons/QuickPluginManager/plugin.cfg", "res://addons/Rename/plugin.cfg", "res://addons/better_print/plugin.cfg", "res://addons/codeburger_advanced_timer/plugin.cfg", "res://addons/codeburger_scene_tree_folder/plugin.cfg", "res://addons/collapse_folders/plugin.cfg", "res://addons/diagnosticlist/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg", "res://addons/explore-editor-theme/plugin.cfg", "res://addons/layerNames/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/random_timers/plugin.cfg", "res://addons/snap_rotate/plugin.cfg", "res://addons/subresource_inspector/plugin.cfg", "res://addons/super_spector/plugin.cfg")
 
 [filesystem]
 

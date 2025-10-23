@@ -1,0 +1,2 @@
+class_name GameEnvironmentComponent
+extends Node2D

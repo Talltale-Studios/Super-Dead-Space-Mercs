@@ -58,6 +58,14 @@ func _input(event):
 		velocity.y *= jump_release_velocity_cut
 
 
+func _on_alpha_coyote_timer_timeout() -> void:
+	pass # Replace with function body.
+
+
+func _on_beta_coyote_timer_timeout() -> void:
+	pass # Replace with function body.
+
+
 func _on_jump_buffer_timer_timeout() -> void:
 	is_jump_buffered = false
 

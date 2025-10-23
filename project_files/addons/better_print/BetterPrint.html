@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BetterPrint - Godot Engine documentation</title>
+    <link rel="stylesheet" href="doc_style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>BetterPrint</h1>
+    </div>
+
+    <div class="content">
+        <section id="description">
+            <h2>Description</h2>
+            <p>The BetterPrint addon provides a few functions to make print outputs to the console look a little bit nicer and provide more information (like timestamps and script names), while keeping the syntax simple.</p>
+        </section>
+
+        <section id="types">
+            <h2>Message types</h2>
+            <p style="color:white;">Normal</p>
+            <p style="color:silver;">Note</p>
+            <p style="color:yellow;">Warning</p>
+            <p style="color:red;">Error</p>
+            <p style="color:green;">Question</p>
+            <p style="color:orange;">ToDo</p>
+            <p style="color:cyan;">Measure</p>
+            <p style="color:purple;">Custom</p>
+        </section>
+
+        <section id="methods">
+            <h2>Methods</h2>
+            <pre><code>BetterPrint.variable(variable_name:String, caller:Object, message_type:String = "NORMAL")</code></pre>
+			<p>Prints a variable name and it's corresponding value. Put "self" as caller so that the name of the script the print command is called from is visible.</p>
+			<img src="images/variable.png"></img>
+			<p><br></p>
+			
+            <pre><code>BetterPrint.multi_variable(variable_names:Array[String], caller:Object, message_type:String = "NORMAL")</code></pre>
+			<p>Prints the names and values of multiple variables at once. Put "self" as caller so that the name of the script the print command is called from is visible.</p>
+			<img src="images/multi_variable.png"></img>
+			<p><br></p>
+			
+            <pre><code>BetterPrint.message(message:String, caller:Object, message_type:String = "NORMAL")</code></pre>
+			<p>Prints a text message. Put "self" as caller so that the name of the script the print command is called from is visible.</p>
+			<img src="images/message.png"></img>
+			<p><br></p>
+			
+            <pre><code>BetterPrint.custom(message:String, caller:Object, message_type:String = "CUSTOM")</code></pre>
+			<p>Prints a text message with a custom named type. Put "self" as caller so that the name of the script the print command is called from is visible.</p>
+			<img src="images/custom.png"></img>
+			<p><br></p>
+			
+            <pre><code>BetterPrint.url(url:String, caller:Object, message_type:String = "NORMAL")</code></pre>
+			<p>Prints clickable links. Put "self" as caller so that the name of the script the print command is called from is visible.</p>
+			<img src="images/url.png"></img>
+			<p><br></p>
+			
+            <pre><code>BetterPrint.start_measure(measure_name:String)
+			
+#Your code here
+			
+BetterPrint.end_measure(measure_name:String, caller:Object)</code></pre>
+			<p>Start a time measure in your code first and give it a unique name. When setting the endpoint the time between start- and endpoint is printed in milliseconds. Put "self" as caller so that the name of the script the print command is called from is visible.</p>
+			<img src="images/measure.png"></img>
+        </section>
+    </div>
+</body>
+</html>

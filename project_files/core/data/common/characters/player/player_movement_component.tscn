@@ -5,3 +5,4 @@
 [node name="PlayerMovementComponent" type="Node2D"]
 script = ExtResource("1_edwkx")
 actor = NodePath("..")
+metadata/_custom_type_script = "uid://3mnr7dma4ql"

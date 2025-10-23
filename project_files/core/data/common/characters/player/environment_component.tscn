@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://7u1s2bbu7jtn"]
+
+[ext_resource type="Script" uid="uid://c3b8tbnxhqcgi" path="res://core/data/common/characters/player/environment_component.gd" id="1_hvlbl"]
+
+[node name="EnvironmentComponent" type="Node2D"]
+script = ExtResource("1_hvlbl")
+metadata/_custom_type_script = "uid://c3b8tbnxhqcgi"

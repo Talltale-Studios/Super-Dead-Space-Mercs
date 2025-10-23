@@ -1,8 +1,10 @@
-[gd_scene load_steps=164 format=3 uid="uid://y4rbi5ibv6li"]
+[gd_scene load_steps=166 format=3 uid="uid://y4rbi5ibv6li"]
 
 [ext_resource type="Script" uid="uid://5cv684qmh7ts" path="res://core/data/common/characters/player/player_controller.gd" id="1_vgxc6"]
 [ext_resource type="PackedScene" uid="uid://dub8sg7st4ep4" path="res://core/data/common/characters/player/player_state_machine.tscn" id="2_rjf7r"]
 [ext_resource type="PackedScene" uid="uid://c65j8vrwnr84k" path="res://core/data/common/characters/player/player_movement_component.tscn" id="3_5tbo0"]
+[ext_resource type="Script" uid="uid://gwjrnqhtolun" path="res://addons/codeburger_scene_tree_folder/folder.gd" id="3_vbx5e"]
+[ext_resource type="PackedScene" uid="uid://7u1s2bbu7jtn" path="res://core/data/common/characters/player/environment_component.tscn" id="4_vbx5e"]
 [ext_resource type="Texture2D" uid="uid://yxqax504wlt4" path="res://core/assets/textures/characters/player/weapon_flash/weaponflash.tres" id="4_y15yd"]
 [ext_resource type="Script" uid="uid://c7057qqve2fn6" path="res://addons/ExtendTimer/etimer.gd" id="7_0do0b"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="7_ogiaa"]
@@ -3898,10 +3900,10 @@ surface_jump_release_velocity_cut = 0.5
 surface_jump_time_to_peak = 0.4
 surface_jump_time_to_descend = 0.25
 surface_multijump_height_reduction = 0.5
-surface_grounded_acceleration = 0.1999999999970896
-surface_airborne_acceleration = 0.10000000000582077
-surface_grounded_friction = 0.4000000000087311
-surface_airborne_friction = 0.1999999999970896
+surface_grounded_acceleration = 2000.0
+surface_airborne_acceleration = 1000.0
+surface_grounded_friction = 4000.0
+surface_airborne_friction = 2000.0
 surface_y_velocity_clamp_min = -420.0
 surface_y_velocity_clamp_max = 420.0
 underwater_jump_height = 36.0
@@ -3912,7 +3914,7 @@ space_jump_height = 108.0
 space_jump_time_to_peak = 0.5
 space_grounded_acceleration = 0.1
 space_grounded_friction = 0.1
-movement_component = NodePath("PlayerMovementComponent")
+movement_component = NodePath("Components/PlayerMovementComponent")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(6, -29, -6, -29, -6, 0, 6, 0)
@@ -3924,7 +3926,14 @@ shape = SubResource("CircleShape2D_0j3vm")
 [node name="PlayerStateMachine" parent="." node_paths=PackedStringArray("actor") instance=ExtResource("2_rjf7r")]
 actor = NodePath("..")
 
-[node name="PlayerMovementComponent" parent="." instance=ExtResource("3_5tbo0")]
+[node name="Components" type="Node" parent="."]
+script = ExtResource("3_vbx5e")
+metadata/_custom_type_script = "uid://gwjrnqhtolun"
+
+[node name="PlayerMovementComponent" parent="Components" instance=ExtResource("3_5tbo0")]
+actor = NodePath("../..")
+
+[node name="EnvironmentComponent" parent="Components" instance=ExtResource("4_vbx5e")]
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2048
@@ -3996,10 +4005,8 @@ tree_root = SubResource("140")
 anim_player = NodePath("../WeaponflashAnimationPlayer")
 
 [node name="Timers" type="Node" parent="."]
-
-[node name="JumpBufferTimer" type="Timer" parent="Timers"]
-wait_time = 0.2
-one_shot = true
+script = ExtResource("3_vbx5e")
+metadata/_custom_type_script = "uid://gwjrnqhtolun"
 
 [node name="AlphaCoyoteTimer" type="Timer" parent="Timers"]
 wait_time = 0.09
@@ -4007,6 +4014,10 @@ one_shot = true
 
 [node name="BetaCoyoteTimer" type="Timer" parent="Timers"]
 wait_time = 0.06
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="Timers"]
+wait_time = 0.2
 one_shot = true
 
 [node name="JumpPeakFloatTimer" type="Timer" parent="Timers"]
@@ -4047,5 +4058,7 @@ process_physics_priority = 300
 script = ExtResource("9_7l7rj")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
+[connection signal="timeout" from="Timers/AlphaCoyoteTimer" to="." method="_on_alpha_coyote_timer_timeout"]
+[connection signal="timeout" from="Timers/BetaCoyoteTimer" to="." method="_on_beta_coyote_timer_timeout"]
 [connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
 [connection signal="timeout" from="Timers/JumpPeakFloatTimer" to="." method="_on_jump_peak_float_timer_timeout"]

@@ -3,34 +3,42 @@
 [ext_resource type="Script" uid="uid://oouwxm0t88w8" path="res://core/data/classes/state_machines/characters/player/player_state_machine.gd" id="1_xxph3"]
 [ext_resource type="Script" uid="uid://bpwffk2aukmso" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_stand_state.gd" id="2_1nplx"]
 [ext_resource type="Script" uid="uid://c8a83c5mi480n" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_jump_state.gd" id="3_j1w47"]
-[ext_resource type="Script" uid="uid://clt2unjhgrdp7" path="res://core/data/classes/state_machines/characters/player/states/leg_states/player_leg_jump_hang_state.gd" id="4_yeuje"]
 [ext_resource type="Script" uid="uid://cg7p37g5rvlm7" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_fall_state.gd" id="5_oes6d"]
 [ext_resource type="Script" uid="uid://bsv2ny0kqbmu2" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_run_state.gd" id="6_cls5s"]
 [ext_resource type="Script" uid="uid://bamioif3eyqx2" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_crouch_state.gd" id="7_yp5o4"]
 [ext_resource type="Script" uid="uid://bdtsmt14gko10" path="res://core/data/classes/state_machines/characters/player/states/leg_states/leg_climb_state.gd" id="8_7ix4y"]
+[ext_resource type="Script" uid="uid://gwjrnqhtolun" path="res://addons/codeburger_scene_tree_folder/folder.gd" id="8_xxph3"]
 
 [node name="PlayerStateMachine" type="Node"]
 script = ExtResource("1_xxph3")
 debug = true
-initial_state = NodePath("PlayerLegStandState")
+initial_state = NodePath("LegStates/PlayerLegStandState")
+metadata/_custom_type_script = "uid://oouwxm0t88w8"
 
-[node name="PlayerLegStandState" type="Node" parent="."]
+[node name="LegStates" type="Node" parent="."]
+script = ExtResource("8_xxph3")
+metadata/_custom_type_script = "uid://gwjrnqhtolun"
+
+[node name="PlayerLegStandState" type="Node" parent="LegStates"]
 script = ExtResource("2_1nplx")
+metadata/_custom_type_script = "uid://bpwffk2aukmso"
 
-[node name="PlayerLegJumpState" type="Node" parent="."]
+[node name="PlayerLegJumpState" type="Node" parent="LegStates"]
 script = ExtResource("3_j1w47")
+metadata/_custom_type_script = "uid://c8a83c5mi480n"
 
-[node name="PlayerLegJumpHangState" type="Node" parent="."]
-script = ExtResource("4_yeuje")
-
-[node name="PlayerLegFallState" type="Node" parent="."]
+[node name="PlayerLegFallState" type="Node" parent="LegStates"]
 script = ExtResource("5_oes6d")
+metadata/_custom_type_script = "uid://cg7p37g5rvlm7"
 
-[node name="PlayerLegRunState" type="Node" parent="."]
+[node name="PlayerLegRunState" type="Node" parent="LegStates"]
 script = ExtResource("6_cls5s")
+metadata/_custom_type_script = "uid://bsv2ny0kqbmu2"
 
-[node name="PlayerLegCrouchState" type="Node" parent="."]
+[node name="PlayerLegCrouchState" type="Node" parent="LegStates"]
 script = ExtResource("7_yp5o4")
+metadata/_custom_type_script = "uid://bamioif3eyqx2"
 
-[node name="PlayerLegClimbState" type="Node" parent="."]
+[node name="PlayerLegClimbState" type="Node" parent="LegStates"]
 script = ExtResource("8_7ix4y")
+metadata/_custom_type_script = "uid://bdtsmt14gko10"

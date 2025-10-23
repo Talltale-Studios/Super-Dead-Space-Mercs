@@ -1,3 +1,4 @@
+class_name GamePlayerLegCrouchState
 extends GamePlayerLegState
 
 func update(_delta: float) -> void:
