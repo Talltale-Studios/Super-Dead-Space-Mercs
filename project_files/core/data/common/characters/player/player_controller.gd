@@ -71,6 +71,6 @@ func _on_jump_buffer_timer_timeout() -> void:
 
 
 func _on_jump_peak_float_timer_timeout() -> void:
-	pass
+	movement_component.had_jump_peak_float_time = false
 
 #endregion

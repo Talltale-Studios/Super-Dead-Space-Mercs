@@ -6,12 +6,12 @@ var _properties: Array[String] = []
 
 
 func _can_handle(object: Object) -> bool:
-	return object is Folder # Only target the Folder class
+	return object is Folder
 
 
 func _parse_begin(object: Object) -> void:
 	var label = Label.new()
-	label.text = "This node is used solely as a visual folder for organizing the scene tree.\nAll properties are disabled."
+	label.text = "This node is a Folder for organizing the scene tree.\n All properties are disabled."
 	add_custom_control(label)
 
 
